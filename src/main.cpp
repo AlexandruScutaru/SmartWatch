@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "Ota.h"
 #include "Display.h"
 #include "Input.h"
@@ -9,6 +7,7 @@
 
 #define PIN_VIBRATION_MOTOR 16
 #define PIN_BUTTON_INPUT 4
+#define PIN_BATTERY_LEVEL 33
 
 int targetFrameTicks = 1000 / 30;
 long prevTicks = 0;
@@ -32,6 +31,7 @@ void setup() {
     pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
     digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
     pinMode(PIN_BUTTON_INPUT, INPUT_PULLUP);
+    pinMode(PIN_BATTERY_LEVEL, INPUT);
   
     Serial.begin(115200);
     Serial.println("Booting");
@@ -61,12 +61,6 @@ void loop() {
     prevTicks = newTicks;
 
     delta =  frameTicks / double(targetFrameTicks);
-
-    //display().clearDisplay();
-    //display().setCursor(0, 0);
-    //display().println(frameTicks);
-    //display().println(delta);
-    //display().display();
 
     /*
     handle ota

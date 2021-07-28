@@ -8,27 +8,26 @@ Input::Input(int buttonPin)
 
 void Input::init() {
     // Button timing variable
-    debounce = 20;            
-    DCgap = 250;              
-    holdTime = 1000;          
+    debounce = 20;
+    DCgap = 250;
+    holdTime = 1000;
     longHoldTime = 3000;
-  
+
     // Button variables
-    buttonPin;
-    buttonVal = HIGH;         
-    buttonLast = HIGH;        
-    DCwaiting = false;        
-    DConUp = false;           
-    singleOK = true;          
-    downTime = -1;            
-    upTime = -1;              
-    ignoreUp = false;         
-    waitForUp = false;        
-    holdEventPast = false;    
+    buttonVal = HIGH;
+    buttonLast = HIGH;
+    DCwaiting = false;
+    DConUp = false;
+    singleOK = true;
+    downTime = -1;
+    upTime = -1;
+    ignoreUp = false;
+    waitForUp = false;
+    holdEventPast = false;
     longHoldEventPast = false;
 }
 
-Input::Action Input::getUserAction() {    
+Input::Action Input::getUserAction() {
    Action action = Action::NONE;
    buttonVal = digitalRead(buttonPin);
    // Button pressed down
@@ -46,7 +45,7 @@ Input::Action Input::getUserAction() {
    }
    // Button released
    else if (buttonVal == HIGH && buttonLast == LOW && (millis() - downTime) > debounce)
-   {        
+   {
        if (!ignoreUp)
        {
            upTime = millis();

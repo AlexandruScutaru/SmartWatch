@@ -5,8 +5,8 @@ ScreenStateMachine::ScreenStateMachine()
     : mCurrentState(nullptr)
  {}
 
-
 ScreenStateMachine::~ScreenStateMachine() {}
+
 
 void ScreenStateMachine::setState(std::shared_ptr<IScreenState> state) {
     mCurrentState = state;

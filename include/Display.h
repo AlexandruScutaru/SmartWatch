@@ -2,6 +2,7 @@
 
 #include <Adafruit_SSD1306.h>
 
+
 class Display {
 public:
     //Reset pin # (or -1 if sharing Arduino reset pin)

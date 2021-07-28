@@ -11,6 +11,4 @@ private:
     static char ssid[32];
     static char pass[32];
 
-    static void getWifiCredentials();
-
 };

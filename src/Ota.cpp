@@ -5,13 +5,10 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 
+#include "credentials.h"
 
-char OTA::ssid[32] = {0};
-char OTA::pass[32] = {0};
 
 bool OTA::init() {
-    getWifiCredentials();
-
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, pass);
     while (WiFi.waitForConnectResult() != WL_CONNECTED) {
@@ -57,8 +54,4 @@ bool OTA::init() {
 
 void OTA::handle() {
     ArduinoOTA.handle();
-}
-
-void OTA::getWifiCredentials() {
-    //TODO: read them from credentials file
 }
