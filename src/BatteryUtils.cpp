@@ -2,12 +2,16 @@
 
 #include <Arduino.h>
 
-#define PIN_BATTERY_LEVEL    33
-#define PERCENTAGE_BIAS      0.2
-#define MAX_ANALOG_READ      4095.0
-#define REFERENCE_VOLTAGE    3.3
-#define MAX_CHARGE           4.2
-#define MIN_ACCPETED_CHARGE  3.7
+#define PIN_BATTERY_LEVEL           33
+#define PERCENTAGE_BIAS             0.2
+#define MAX_ANALOG_READ             4095.0
+#define REFERENCE_VOLTAGE           3.3
+#define MAX_CHARGE                  4.2
+#define MIN_ACCPETED_CHARGE         3.7
+#define MAX_PERCENTAGE              100
+#define MIN_ACCEPTED_PERCENTAGE     10
+#define PERCENTAGE_RANGE_DIFFERENCE (MAX_PERCENTAGE - MIN_ACCEPTED_PERCENTAGE)
+#define NB_READS_TO_AVERAGE         50
 
 
 namespace BatteryUtils {
@@ -19,7 +23,7 @@ namespace BatteryUtils {
         };
 
         double averageVoltage = 0.0;
-        double voltages[100] = {0};
+        double voltages[NB_READS_TO_AVERAGE] = {0};
         size_t index = 0U;
         uint8_t percentage = 0U;
 
@@ -69,15 +73,18 @@ namespace BatteryUtils {
     }
 
     uint8_t GetBatteryLevel() {
+        //2* is used because max voltage of battery (4.2V) exceeds the analog read of 3.3v of the board
+        //so the battery sensing wire is part of a voltage divider to be in the expected range [0, 3.3]
+        //the PERCENTAGE_BIAS (0.2) is empirically deduced to get a closer voltage to a real meter reading
         voltages[index++] = 2 * (REFERENCE_VOLTAGE * analogRead(PIN_BATTERY_LEVEL) / MAX_ANALOG_READ) + PERCENTAGE_BIAS;
-        percentage = min((int)((voltages[0] - MIN_ACCPETED_CHARGE) / (MAX_CHARGE - MIN_ACCPETED_CHARGE) * (100 - 10) + 10), 100);
+        //percentage = std::min((int)((voltages[0] - MIN_ACCPETED_CHARGE) / (MAX_CHARGE - MIN_ACCPETED_CHARGE) * ((int)PERCENTAGE_RANGE_DIFFERENCE) + MIN_ACCEPTED_PERCENTAGE), MAX_PERCENTAGE);
 
-        if(100 == index) {
+        if(index == NB_READS_TO_AVERAGE) {
             double sum = 0.0;
-            for(size_t i = 0; i < 100; i++)
+            for(size_t i = 0; i < NB_READS_TO_AVERAGE; i++)
                 sum += voltages[i];
 
-            averageVoltage = sum / 100.0;
+            averageVoltage = sum / float(NB_READS_TO_AVERAGE);
             index = 0;
             percentage = getAssociatedPercentage();
         }
