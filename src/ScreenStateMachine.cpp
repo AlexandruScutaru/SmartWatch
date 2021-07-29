@@ -17,7 +17,21 @@ std::shared_ptr<IScreenState> ScreenStateMachine::getCurrentState() {
 }
 
 void ScreenStateMachine::handle(Input::Action action) {
-    mCurrentState->handle(action);
+    if (mCurrentState) {
+        mCurrentState->handle(action);
+    }
+}
+
+void ScreenStateMachine::update(double dt) {
+    if (mCurrentState) {
+        mCurrentState->update(dt);
+    }
+}
+
+void ScreenStateMachine::draw(Display& display) {
+    if (mCurrentState) {
+        mCurrentState->draw(display);
+    }
 }
 
 void ScreenStateMachine::changeState(std::shared_ptr<IScreenState> state) {

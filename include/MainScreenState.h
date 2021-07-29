@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ScreenStateMachine.h"
+#include "Timer.h"
 
 
 class MainScreenState : public IScreenState {
@@ -13,6 +14,5 @@ public:
 
 private:
     ScreenStateMachine* mStateMachine;
-    long timerStart;
-
+    Timer mTimer;
 };

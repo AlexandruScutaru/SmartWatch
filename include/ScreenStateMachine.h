@@ -23,7 +23,10 @@ public:
     std::shared_ptr<IScreenState> getCurrentState();
 
     void handle(Input::Action action);
+    void update(double dt);
+    void draw(Display& display);
     void changeState(std::shared_ptr<IScreenState> state);
+
 private:
     std::shared_ptr<IScreenState> mCurrentState;
 
