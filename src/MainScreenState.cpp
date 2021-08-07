@@ -1,7 +1,6 @@
 #include "MainScreenState.h"
 #include "IdleState.h"
 #include "Display.h"
-#include "BatteryUtils.h"
 
 
 MainScreenState::MainScreenState(ScreenStateMachine* stateMachine) 
@@ -23,15 +22,13 @@ void MainScreenState::handle(Input::Action action) {
 }
 
 void MainScreenState::update(double dt) {
+    mBatteryIndicator.update(dt);
     mTimer.update();
 }
 
 void MainScreenState::draw(Display& display) {
     display().clearDisplay();
-    display().setCursor(0, 0);
-    display().print(BatteryUtils::GetBatteryVoltage(), 2);
-    display().print("~");
-    display().print(BatteryUtils::GetBatteryLevel());
+    mBatteryIndicator.draw(display);
     display().setCursor(0, 10);
     display().print("main screen");
     display().display();

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BatteryIndicator.h"
 #include "ScreenStateMachine.h"
 #include "Timer.h"
 
@@ -15,4 +16,5 @@ public:
 private:
     ScreenStateMachine* mStateMachine;
     Timer mTimer;
+    BatteryIndicator mBatteryIndicator;
 };
