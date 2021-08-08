@@ -12,6 +12,7 @@ public:
     Adafruit_SSD1306& operator() ();
 
     void drawText(const char* text);
+    void clearAndShow();
 
 private:
     uint8_t mWidth;

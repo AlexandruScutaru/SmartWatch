@@ -16,7 +16,7 @@ public:
 
 class ScreenStateMachine {
 public:
-    ScreenStateMachine();
+    ScreenStateMachine(Display& display);
     ~ScreenStateMachine();
 
     void setState(std::shared_ptr<IScreenState> state);
@@ -24,10 +24,11 @@ public:
 
     void handle(Input::Action action);
     void update(double dt);
-    void draw(Display& display);
+    void draw();
     void changeState(std::shared_ptr<IScreenState> state);
 
 private:
     std::shared_ptr<IScreenState> mCurrentState;
+    Display& mDisplay;
 
 };

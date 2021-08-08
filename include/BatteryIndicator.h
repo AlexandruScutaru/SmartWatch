@@ -30,8 +30,8 @@ private:
 
     uint16_t mPosX = 0U;
     uint16_t mPosY = 0U;
-    uint16_t mWidth = 15U;
-    uint16_t mHeight = 5U;
+    uint16_t mWidth = 20U;
+    uint16_t mHeight = 8U;
 
     uint8_t mPercentage = 0U;
     double mVoltage = 0.0;

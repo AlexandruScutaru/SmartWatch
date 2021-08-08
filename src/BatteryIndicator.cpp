@@ -37,8 +37,7 @@ const BatteryIndicator::VoltagePercentagePair BatteryIndicator::mVoltageRanges[]
 const size_t BatteryIndicator::mNumberRanges = sizeof(BatteryIndicator::mVoltageRanges) / sizeof(BatteryIndicator::mVoltageRanges[0]);
 
 
-BatteryIndicator::BatteryIndicator() 
-{
+BatteryIndicator::BatteryIndicator() {
     auto reading = readBatteryVoltage();
     mVoltage = reading.voltage;
     mPercentage = reading.percentage;
@@ -56,10 +55,11 @@ void BatteryIndicator::update(double dt) {
 }
 
 void BatteryIndicator::draw(Display& display) {
-    display().drawRect(mPosX, mPosY+1, mWidth, mHeight, SSD1306_WHITE);
-    display().fillRect(mPosX+1, mPosY+1, (mWidth-2) * (mPercentage / 100.0), mHeight, SSD1306_WHITE);
-    display().drawFastVLine(mPosX+mWidth, mPosY+2, 3, SSD1306_WHITE);
-    display().setCursor(mPosX + mWidth+4, mPosY);
+    //TODO: limit the usage of magic numbers like these
+    display().drawRect(mPosX, mPosY+5, mWidth, mHeight, SSD1306_WHITE);
+    display().fillRect(mPosX+1, mPosY+5, (mWidth-2) * (mPercentage / 100.0), mHeight, SSD1306_WHITE);
+    display().fillRect(mPosX+mWidth, mPosY+7, 2, 4, SSD1306_WHITE);
+    display().setCursor(mPosX + mWidth+6, mPosY + 2);
     display().print(mPercentage);
 }
 
@@ -90,8 +90,8 @@ BatteryIndicator::VoltagePercentagePair BatteryIndicator::readBatteryVoltage() {
     if(index)
         index--;
 
-    reading.percentage = min((int)((reading.voltage - mVoltageRanges[index+1].voltage) / (mVoltageRanges[index].voltage - mVoltageRanges[index+1].voltage) * 
-                                    (mVoltageRanges[index].percentage - mVoltageRanges[index+1].percentage) + mVoltageRanges[index+1].percentage), 100);
+    reading.percentage = min((int)((reading.voltage - mVoltageRanges[index+1].voltage) / (mVoltageRanges[index].voltage - mVoltageRanges[index+1].voltage) *
+                                   (mVoltageRanges[index].percentage - mVoltageRanges[index+1].percentage) + mVoltageRanges[index+1].percentage), 100);
 
     return reading;
 }

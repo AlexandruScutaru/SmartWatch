@@ -7,7 +7,7 @@
 
 Display::Display(int8_t rst/*= -1*/) 
     : mWidth(128)
-    , mHeight(32)
+    , mHeight(64)
     , mDisplay(mWidth, mHeight, &Wire, rst)  // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 {}
 
@@ -34,5 +34,10 @@ void Display::drawText(const char* text) {
     mDisplay.clearDisplay();
     mDisplay.setCursor(0,0);
     mDisplay.println(text);
+    mDisplay.display();
+}
+
+void Display::clearAndShow() {
+    mDisplay.clearDisplay();
     mDisplay.display();
 }

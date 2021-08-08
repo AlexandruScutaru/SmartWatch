@@ -4,12 +4,14 @@
 #include "IdleState.h"
 #include "MainScreenState.h"
 #include "Ota.h"
+#include "ClockFace.h"
+
 
 #define PIN_VIBRATION_MOTOR 16
 #define PIN_BUTTON_INPUT    4
 #define PIN_BATTERY_LEVEL   33
 
-#define TARGET_FPS          30
+#define TARGET_FPS          20
 #define TARGET_FRAME_TICKS  (1000 / TARGET_FPS)
 
 
@@ -23,6 +25,7 @@
 App::App() 
     : mDisplay(Display())
     , mInput(Input(PIN_BUTTON_INPUT))
+    , mScreenStateMachine(ScreenStateMachine(mDisplay))
 {
     pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
     digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
@@ -53,16 +56,6 @@ App::~App() {}
 
 
 void App::run() {
-    mTimer.start(2000, false, [](){
-        static bool running = false;
-        if (running) {
-            digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
-        } else {
-            digitalWrite(PIN_VIBRATION_MOTOR, LOW);
-        }
-        running = !running;
-    });
-
     mPrevTicks = millis();
     loop();
 }
@@ -97,10 +90,9 @@ void App::update(double delta) {
     Input::Action userAction = mInput.getUserAction();
     mScreenStateMachine.handle(userAction);
     mScreenStateMachine.update(delta);
-
-    mTimer.update();
+    CLOCK_FACE.update(delta);
 }
 
 void App::draw() {
-    mScreenStateMachine.draw(mDisplay);
+    mScreenStateMachine.draw();
 }

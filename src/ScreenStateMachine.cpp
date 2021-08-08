@@ -1,14 +1,17 @@
 #include "ScreenStateMachine.h"
+#include "Display.h"
 
 
-ScreenStateMachine::ScreenStateMachine()
+ScreenStateMachine::ScreenStateMachine(Display& display)
     : mCurrentState(nullptr)
+    , mDisplay(display)
  {}
 
 ScreenStateMachine::~ScreenStateMachine() {}
 
 
 void ScreenStateMachine::setState(std::shared_ptr<IScreenState> state) {
+    mDisplay.clearAndShow();
     mCurrentState = state;
 }
 
@@ -28,13 +31,14 @@ void ScreenStateMachine::update(double dt) {
     }
 }
 
-void ScreenStateMachine::draw(Display& display) {
+void ScreenStateMachine::draw() {
     if (mCurrentState) {
-        mCurrentState->draw(display);
+        mCurrentState->draw(mDisplay);
     }
 }
 
 void ScreenStateMachine::changeState(std::shared_ptr<IScreenState> state) {
+    mDisplay.clearAndShow();
     if(mCurrentState != state) {
         mCurrentState = state;
     }

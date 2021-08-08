@@ -17,4 +17,5 @@ private:
     ScreenStateMachine* mStateMachine;
     Timer mTimer;
     BatteryIndicator mBatteryIndicator;
+
 };

@@ -19,13 +19,6 @@ void IdleState::handle(Input::Action action) {
     }
 }
 
-void IdleState::update(double dt) {
+void IdleState::update(double dt) {}
 
-}
-
-void IdleState::draw(Display& display) {
-    display().clearDisplay();
-    display().setCursor(0, 10);
-    display().print("Idle state");
-    display().display();
-}
+void IdleState::draw(Display& display) {}

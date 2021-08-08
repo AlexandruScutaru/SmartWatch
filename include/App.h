@@ -2,7 +2,6 @@
 
 #include "Display.h"
 #include "Input.h"
-#include "Timer.h"
 #include "ScreenStateMachine.h"
 
 #include <cstdint>
@@ -28,6 +27,5 @@ private:
 
     Display mDisplay;
     Input mInput;
-    Timer mTimer;
     ScreenStateMachine mScreenStateMachine;
 };
