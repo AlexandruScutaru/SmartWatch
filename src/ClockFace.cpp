@@ -23,8 +23,8 @@ ClockFace::ClockFace() {
 }
 
 void ClockFace::draw(Display& display) {
-    display().setTextSize(3);
-    display().setCursor(19, 18);
+    display().setTextSize(4);
+    display().setCursor(4, 16);
     PRINT_WITH_LEADING_ZERO(mHour);
     if (mShowColon)
         display().print(":");
@@ -33,7 +33,7 @@ void ClockFace::draw(Display& display) {
     PRINT_WITH_LEADING_ZERO(mMin);
 
     display().setTextSize(2);
-    display().setCursor(4, 42);
+    display().setCursor(4, 48);
     PRINT_WITH_LEADING_ZERO(mDay);
     display().print("/");
     PRINT_WITH_LEADING_ZERO(mMonth);
