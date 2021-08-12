@@ -9,7 +9,7 @@ public:
 
     void handle(Input::Action action) override;
     void update(double dt) override;
-    void draw(Display& display) override;
+    void draw(IDisplayPtr display) override;
 
 private:
     ScreenStateMachine* mStateMachine;

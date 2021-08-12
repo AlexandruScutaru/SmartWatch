@@ -1,23 +1,25 @@
 #pragma once
 
+#include "IDisplay.h"
 #include "Input.h"
 
 #include <memory>
 
-class Display;
 
 class IScreenState {
 public:    
     virtual void handle(Input::Action action) = 0;
     virtual void update(double dt) = 0;
-    virtual void draw(Display& display) = 0;
+    virtual void draw(IDisplayPtr display) = 0;
 };
 
 
 class ScreenStateMachine {
 public:
-    ScreenStateMachine(Display& display);
+    ScreenStateMachine();
     ~ScreenStateMachine();
+
+    void init(IDisplayPtr display);
 
     void setState(std::shared_ptr<IScreenState> state);
     std::shared_ptr<IScreenState> getCurrentState();
@@ -29,6 +31,6 @@ public:
 
 private:
     std::shared_ptr<IScreenState> mCurrentState;
-    Display& mDisplay;
+    IDisplayPtr mDisplay;
 
 };

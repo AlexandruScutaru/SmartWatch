@@ -6,6 +6,12 @@
 #include "Ota.h"
 #include "ClockFace.h"
 
+#if defined(SERIAL_DISPLAY)
+    #include "SerialDisplay.h"
+#else
+    #include "OledDisplay.h"
+#endif
+
 
 #define PIN_VIBRATION_MOTOR 16
 #define PIN_BUTTON_INPUT    4
@@ -23,33 +29,40 @@
 */
 
 App::App() 
-    : mDisplay(Display())
-    , mInput(Input(PIN_BUTTON_INPUT))
-    , mScreenStateMachine(ScreenStateMachine(mDisplay))
+    : mInput(Input(PIN_BUTTON_INPUT))
 {
     pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
     digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
     pinMode(PIN_BUTTON_INPUT, INPUT_PULLUP);
     pinMode(PIN_BATTERY_LEVEL, INPUT);
-  
+
     Serial.begin(115200);
     Serial.println("Booting");
-  
+
     OTA::init();
     mInput.init();
-    mDisplay.init();
+
+#if defined(SERIAL_DISPLAY)
+    mDisplay = std::make_shared<SerialDisplay>();
+#else
+    mDisplay = std::make_shared<OledDisplay>();
+#endif
+
+    mDisplay->init();
+    mScreenStateMachine.init(mDisplay);
 
     // Show initial display buffer contents on the screen --
     // the library initializes this with an Adafruit splash screen.
-    mDisplay().display();
-    delay(2000);
-    mDisplay().clearDisplay();
-    mDisplay().display();
+    if (mDisplay) {
+        mDisplay->display();
+        delay(2000);
+        mDisplay->clear();
+        mDisplay->display();
+    }
 
     mScreenStateMachine.setState(std::shared_ptr<IScreenState>(new MainScreenState(&mScreenStateMachine)));
 
     Serial.println("Setup done");
-
 }
 
 App::~App() {}

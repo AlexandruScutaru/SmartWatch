@@ -1,5 +1,4 @@
 #include "BatteryIndicator.h"
-#include "Display.h"
 
 #include <Arduino.h>
 
@@ -54,13 +53,15 @@ void BatteryIndicator::update(double dt) {
     mBatteryReadTimer.update();
 }
 
-void BatteryIndicator::draw(Display& display) {
+void BatteryIndicator::draw(IDisplayPtr display) {
+    if (!display)
+        return;
     //TODO: limit the usage of magic numbers like these
-    display().drawRect(mPosX, mPosY+5, mWidth, mHeight, SSD1306_WHITE);
-    display().fillRect(mPosX+1, mPosY+5, (mWidth-2) * (mPercentage / 100.0), mHeight, SSD1306_WHITE);
-    display().fillRect(mPosX+mWidth, mPosY+7, 2, 4, SSD1306_WHITE);
-    display().setCursor(mPosX + mWidth+6, mPosY + 2);
-    display().print(mPercentage);
+    display->drawRect(mPosX, mPosY+5, mWidth, mHeight);
+    display->fillRect(mPosX+1, mPosY+5, (mWidth-2) * (mPercentage / 100.0), mHeight);
+    display->fillRect(mPosX+mWidth, mPosY+7, 2, 4);
+    display->setCursor(mPosX + mWidth+6, mPosY + 2);
+    display->print(mPercentage);
 }
 
 uint8_t BatteryIndicator::getPercetnage() {

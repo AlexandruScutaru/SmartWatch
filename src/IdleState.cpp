@@ -1,6 +1,6 @@
 #include "IdleState.h"
 #include "MainScreenState.h"
-#include "Display.h"
+
 
 IdleState::IdleState(ScreenStateMachine* stateMachine) 
     : IScreenState()
@@ -21,4 +21,4 @@ void IdleState::handle(Input::Action action) {
 
 void IdleState::update(double dt) {}
 
-void IdleState::draw(Display& display) {}
+void IdleState::draw(IDisplayPtr display) {}

@@ -1,11 +1,9 @@
 #pragma once
 
+#include "IDisplay.h"
 #include "Timer.h"
-
 #include <cstdint>
 
-
-class Display;
 
 class ClockFace {
 public:
@@ -13,7 +11,7 @@ public:
     //making it singleton just for developing until I settle on a proper states design etc
     static ClockFace& GetInstance();
 
-    void draw(Display& display);
+    void draw(IDisplayPtr display);
     void update(double dt);
 
 private:

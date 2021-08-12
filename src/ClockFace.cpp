@@ -1,7 +1,6 @@
 #include "ClockFace.h"
-#include "Display.h"
 
-#define PRINT_WITH_LEADING_ZERO(value)        if ((value) < 10U) display().print("0"); display().print((value))
+#define PRINT_WITH_LEADING_ZERO(value)        if ((value) < 10U) display->print("0"); display->print((value))
 
 
 static uint8_t MONTHS_ARR[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -22,23 +21,26 @@ ClockFace::ClockFace() {
     });
 }
 
-void ClockFace::draw(Display& display) {
-    display().setTextSize(4);
-    display().setCursor(4, 16);
+void ClockFace::draw(IDisplayPtr display) {
+    if (!display)
+        return;
+
+    display->setTextSize(4);
+    display->setCursor(4, 16);
     PRINT_WITH_LEADING_ZERO(mHour);
     if (mShowColon)
-        display().print(":");
+        display->print(":");
     else
-        display().print(" ");
+        display->print(" ");
     PRINT_WITH_LEADING_ZERO(mMin);
 
-    display().setTextSize(2);
-    display().setCursor(4, 48);
+    display->setTextSize(2);
+    display->setCursor(4, 48);
     PRINT_WITH_LEADING_ZERO(mDay);
-    display().print("/");
+    display->print("/");
     PRINT_WITH_LEADING_ZERO(mMonth);
-    display().print("/");
-    display().print(mYear);
+    display->print("/");
+    display->print(mYear);
 }
 
 void ClockFace::update(double dt) {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Display.h"
+#include "IDisplay.h"
 #include "Input.h"
 #include "ScreenStateMachine.h"
 
@@ -25,7 +25,7 @@ private:
     uint32_t mFrameTicks = 0U;
     double delta = 0.0;
 
-    Display mDisplay;
+    IDisplayPtr mDisplay;
     Input mInput;
     ScreenStateMachine mScreenStateMachine;
 };

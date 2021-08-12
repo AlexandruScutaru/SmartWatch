@@ -1,6 +1,5 @@
 #include "MainScreenState.h"
 #include "IdleState.h"
-#include "Display.h"
 #include "ClockFace.h"
 
 
@@ -28,11 +27,14 @@ void MainScreenState::update(double dt) {
     mTimer.update();
 }
 
-void MainScreenState::draw(Display& display) {
-    display().clearDisplay();
+void MainScreenState::draw(IDisplayPtr display) {
+    if (!display)
+        return;
+
+    display->clear();
 
     mBatteryIndicator.draw(display);
     CLOCK_FACE.draw(display);
 
-    display().display();
+    display->display();
 }
