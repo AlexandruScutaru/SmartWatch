@@ -6,7 +6,7 @@ ScreenStateMachine::ScreenStateMachine() {}
 ScreenStateMachine::~ScreenStateMachine() {}
 
 
-void ScreenStateMachine::init(IDisplayPtr display) {
+void ScreenStateMachine::init(DisplayPtr display) {
     mDisplay = display;
 }
 

@@ -21,4 +21,4 @@ void IdleState::handle(Input::Action action) {
 
 void IdleState::update(double dt) {}
 
-void IdleState::draw(IDisplayPtr display) {}
+void IdleState::draw(DisplayPtr display) {}

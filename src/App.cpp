@@ -43,9 +43,9 @@ App::App()
     mInput.init();
 
 #if defined(SERIAL_DISPLAY)
-    mDisplay = std::make_shared<SerialDisplay>();
+    mDisplay = std::make_shared<SerialDisplay>(128, 64, -1);
 #else
-    mDisplay = std::make_shared<OledDisplay>();
+    mDisplay = std::make_shared<OledDisplay>(128, 64, -1);
 #endif
 
     mDisplay->init();

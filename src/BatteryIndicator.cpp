@@ -53,7 +53,7 @@ void BatteryIndicator::update(double dt) {
     mBatteryReadTimer.update();
 }
 
-void BatteryIndicator::draw(IDisplayPtr display) {
+void BatteryIndicator::draw(DisplayPtr display) {
     if (!display)
         return;
     //TODO: limit the usage of magic numbers like these

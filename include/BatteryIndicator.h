@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IDisplay.h"
+#include "Display.h"
 #include "Timer.h"
 
 #include <cstdint>
@@ -11,7 +11,7 @@ public:
     BatteryIndicator();
 
     void update(double dt);
-    void draw(IDisplayPtr display);
+    void draw(DisplayPtr display);
 
     uint8_t getPercetnage();
     double getVoltage();

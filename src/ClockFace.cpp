@@ -21,7 +21,7 @@ ClockFace::ClockFace() {
     });
 }
 
-void ClockFace::draw(IDisplayPtr display) {
+void ClockFace::draw(DisplayPtr display) {
     if (!display)
         return;
 

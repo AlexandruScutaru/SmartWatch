@@ -11,7 +11,7 @@ public:
 
     void handle(Input::Action action) override;
     void update(double dt) override;
-    void draw(IDisplayPtr display) override;
+    void draw(DisplayPtr display) override;
 
 private:
     ScreenStateMachine* mStateMachine;

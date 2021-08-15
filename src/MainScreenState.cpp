@@ -27,7 +27,7 @@ void MainScreenState::update(double dt) {
     mTimer.update();
 }
 
-void MainScreenState::draw(IDisplayPtr display) {
+void MainScreenState::draw(DisplayPtr display) {
     if (!display)
         return;
 
