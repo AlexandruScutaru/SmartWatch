@@ -5,13 +5,13 @@
 #include "MainScreenState.h"
 #include "Ota.h"
 #include "ClockFace.h"
+#include "Logger.h"
 
 #if defined(SERIAL_DISPLAY)
     #include "SerialDisplay.h"
 #else
     #include "OledDisplay.h"
 #endif
-
 
 #define PIN_VIBRATION_MOTOR 16
 #define PIN_BUTTON_INPUT    4
@@ -37,7 +37,7 @@ App::App()
     pinMode(PIN_BATTERY_LEVEL, INPUT);
 
     Serial.begin(115200);
-    Serial.println("Booting");
+    LOG_LN("Booting");
 
     OTA::init();
     mInput.init();
@@ -62,7 +62,7 @@ App::App()
 
     mScreenStateMachine.setState(std::shared_ptr<IScreenState>(new MainScreenState(&mScreenStateMachine)));
 
-    Serial.println("Setup done");
+    LOG_LN("Setup done");
 }
 
 App::~App() {}
