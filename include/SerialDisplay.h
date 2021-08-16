@@ -9,4 +9,7 @@ public:
 
     void display() override;
 
+private:
+    uint16_t mBuffLen = 0;
+
 };

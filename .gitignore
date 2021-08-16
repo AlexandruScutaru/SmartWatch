@@ -4,3 +4,5 @@
 .vscode/launch.json
 .vscode/ipch
 include/credentials.h
+serial_display_renderer/build
+serial_display_renderer/deps
