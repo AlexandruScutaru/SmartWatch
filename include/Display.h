@@ -10,18 +10,20 @@ public:
     Display(uint8_t w, uint8_t h, int8_t rst);
 
     virtual void display() = 0;
-    
+
     void init();
     void clear();
     void clearAndDisplay();
     void setCursor(int16_t x, int16_t y);
     void setTextSize(uint8_t size);
     void setTextColor(uint16_t color);
+    void setTextColor(uint16_t color, uint16_t bg);
     void invert(bool invert);
 
-    void drawPixel(int16_t x, int16_t y);
-    void drawRect(int16_t x, int16_t y, int16_t w, int16_t h);
-    void fillRect(int16_t x, int16_t y, int16_t w, int16_t h);
+    void drawPixel(int16_t x, int16_t y, uint16_t color = SSD1306_WHITE);
+    void drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color = SSD1306_WHITE);
+    void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color = SSD1306_WHITE);
+    void drawBitmap(int16_t x, int16_t y, const uint8_t* bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg);
 
     size_t print(uint32_t);
     size_t print(int32_t);

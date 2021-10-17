@@ -5,18 +5,15 @@
 
 static uint8_t MONTHS_ARR[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-
 ClockFace& ClockFace::GetInstance() {
     static ClockFace instance;
     return instance;
 }
 
 ClockFace::ClockFace() {
-    //TODO: setting the time like this is not even close to keeping time the proper way
-    //      I also don't have a RTC on board..
-    //      will rely on getting the time from the connected mobile device at some interval
-    //make it move way faster to see it updating the clock face
-    mOneSecondTimer.start(100, false, [this]() {
+    // I don't have a RTC on board.. will rely on getting the actual time 
+    // from the connected mobile device at some time interval to limit drift off
+    mOneSecondTimer.start(1000, false, [this]() {
         onSecondPassed();
     });
 }
@@ -60,11 +57,13 @@ void ClockFace::onSecondPassed() {
                 mHour = 0U;
                 mDay++;
                 if(mDay > MONTHS_ARR[mMonth-1]) {
-                    mDay = 1U;
-                    mMonth++;
-                    if (mMonth > 12) {
-                        mMonth = 1U;
-                        mYear++;
+                    if (mMonth != 2 || !isLeapYear()) {
+                        mDay = 1U;
+                        mMonth++;
+                        if (mMonth > 12) {
+                            mMonth = 1U;
+                            mYear++;
+                        }
                     }
                 }
             }
@@ -72,4 +71,17 @@ void ClockFace::onSecondPassed() {
     }
 
     mShowColon = !mShowColon;
+}
+
+bool ClockFace::isLeapYear() {
+    if (mYear % 400 == 0)
+        return true;
+ 
+    if (mYear % 100 == 0)
+        return false;
+ 
+    if (mYear % 4 == 0)
+        return true;
+
+    return false;
 }

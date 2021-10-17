@@ -7,6 +7,7 @@
 #include "ClockFace.h"
 #include "Logger.h"
 
+//#define SERIAL_DISPLAY
 #if defined(SERIAL_DISPLAY)
     #include "SerialDisplay.h"
 #else

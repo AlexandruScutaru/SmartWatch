@@ -16,19 +16,20 @@ public:
 
 private:
     ClockFace();
-    //should be also taken care of the rest them 5
+    //should also take care of the rest of 5 rule ones
 
     void onSecondPassed();
+    bool isLeapYear();
 
     //TODO: keep time as seconds since epoch time
     //      each minute passed update these values accordingly
     //      eventually disable one second timer, as this is used for getting the visuals only
-    uint8_t mSec = 0U;
-    uint8_t mMin = 59U;
-    uint8_t mHour = 23U;
-    uint8_t mDay = 31U;
-    uint8_t mMonth = 12U;
-    uint16_t mYear = 2020U;
+    uint8_t mSec = 10U;
+    uint8_t mMin = 23U;
+    uint8_t mHour = 20U;
+    uint8_t mDay = 16U;
+    uint8_t mMonth = 10U;
+    uint16_t mYear = 2021U;
 
     bool mShowColon = true;
     Timer mOneSecondTimer;

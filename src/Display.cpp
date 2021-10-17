@@ -13,7 +13,7 @@ Display::Display(uint8_t w, uint8_t h, int8_t rst)
 
 void Display::init() {
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-    if(!mDisplay.begin(SSD1306_SWITCHCAPVCC)) {
+    if(!mDisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
         LOG_LN("Display buffer allocation failed");
         delay(2000);
         ESP.restart();
@@ -47,21 +47,30 @@ void Display::setTextColor(uint16_t color) {
     mDisplay.setTextColor(color);
 }
 
+void Display::setTextColor(uint16_t color, uint16_t bg) {
+    mDisplay.setTextColor(color, bg);
+}
+
 void Display::invert(bool invert) {
     mDisplay.invertDisplay(invert);
 }
 
-void Display::drawPixel(int16_t x, int16_t y) {
-    mDisplay.drawPixel(x, y, SSD1306_WHITE);
+
+void Display::drawPixel(int16_t x, int16_t y, uint16_t color) {
+    mDisplay.drawPixel(x, y, color);
 }
 
-void Display::drawRect(int16_t x, int16_t y, int16_t w, int16_t h) {
-    mDisplay.drawRect(x, y, w, h, SSD1306_WHITE);
+void Display::drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+    mDisplay.drawRect(x, y, w, h, color);
 };
 
-void Display::fillRect(int16_t x, int16_t y, int16_t w, int16_t h) {
-    mDisplay.fillRect(x, y, w, h, SSD1306_WHITE);
+void Display::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color) {
+    mDisplay.fillRect(x, y, w, h, color);
 };
+
+void Display::drawBitmap(int16_t x, int16_t y, const uint8_t* bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg) {
+    mDisplay.drawBitmap(x, y, bitmap, w, h, color, bg);
+}
 
 
 size_t Display::print(uint32_t val) {

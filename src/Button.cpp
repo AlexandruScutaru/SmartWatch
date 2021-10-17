@@ -1,30 +1,39 @@
 #include "Button.h"
+
 #include "Display.h"
 
 
-Button::Button() {}
+Button::Button(const char* text, const vec2& pos, const vec2& size, OnClickFunction func) 
+    : mPos(pos)
+    , mSize(size)
+    , mText(text)
+    , mFocused(false)
+    , mFunc(func)
+{}
+
+Button::~Button() {}
 
 
-void Button::update(double dt) {
-
+void Button::trigger() {
+    if (mFunc) {
+        mFunc();
+    }
 }
+
+void Button::update(double dt) {}
 
 void Button::draw(DisplayPtr display) {
-
+    drawAt(display, mPos);
 }
 
-void Button::onSingleTap() {
-
+void Button::setFocused(bool focus) {
+    mFocused = focus;
 }
 
-void Button::onDoubleTap() {
-
+vec2 Button::getPosition() {
+    return mPos;
 }
 
-void Button::onTripleTap() {
-
-}
-
-void Button::onLongPress() {
-
+vec2 Button::getSize() {
+    return mSize;
 }

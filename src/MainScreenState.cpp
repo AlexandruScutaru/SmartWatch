@@ -1,4 +1,5 @@
 #include "MainScreenState.h"
+#include "MainMenuState.h"
 #include "IdleState.h"
 #include "ClockFace.h"
 
@@ -19,11 +20,19 @@ void MainScreenState::handle(Input::Action action) {
     if (action != Input::Action::NONE) {
         mTimer.reset();
     }
+
+    switch (action)
+    {
+    case Input::Action::DOUBLE_TAP:
+        mStateMachine->changeState(std::shared_ptr<IScreenState>(new MainMenuState(mStateMachine)));
+        break;
+    default:
+        break;
+    }
 }
 
 void MainScreenState::update(double dt) {
     mBatteryIndicator.update(dt);
-    //CLOCK_FACE.update(dt);
     mTimer.update();
 }
 

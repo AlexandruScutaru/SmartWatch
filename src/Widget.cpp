@@ -1,13 +1,9 @@
 #include "Widget.h"
 
+
 Widget::Widget() {}
 
 Widget::~Widget() {}
-
-
-void Widget::setOnClickFunction(OnClickFunction func) {
-    mFunc = func;
-}
 
 void Widget::handle(Input::Action action) {
     switch (action)
