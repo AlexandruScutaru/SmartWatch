@@ -4,7 +4,7 @@ Basic smart watch based on the ESP32 microcontroller.
 This repo holds only the code that runs on the microcontroller. 
 Another repo might be added to hold an eventual mobile app used to control it.
 
-<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/resources/watch.png" width="500">
+<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/watch.png" width="300"> <img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/serial_display.gif" width="600">
 
 ## Specifications:
 
