@@ -48,9 +48,16 @@ App::App()
 #else
     mDisplay = std::make_shared<OledDisplay>(128, 64, -1);
 #endif
-
     mDisplay->init();
+
+    Callbacks bleCallbacks;
+    bleCallbacks.write = [this](const std::string& data) { 
+        bleOnWrite(data);
+    };
+    mBle = std::make_shared<BLE>("ESP32-Watch", bleCallbacks);
+
     mScreenStateMachine.init(mDisplay);
+    mScreenStateMachine.setBle(mBle);
 
     // Show initial display buffer contents on the screen --
     // the library initializes this with an Adafruit splash screen.
@@ -109,4 +116,14 @@ void App::update(double delta) {
 
 void App::draw() {
     mScreenStateMachine.draw();
+}
+
+
+void App::bleOnWrite(const std::string& data) {
+    LOG_LN(data.c_str());
+
+    //just to get an indication that it works
+    static bool motor = true;
+    motor = !motor;
+    digitalWrite(PIN_VIBRATION_MOTOR, static_cast<uint8_t>(motor));
 }

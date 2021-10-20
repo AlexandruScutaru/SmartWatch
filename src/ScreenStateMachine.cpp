@@ -1,5 +1,7 @@
 #include "ScreenStateMachine.h"
 
+#include "Ble.h"
+
 
 ScreenStateMachine::ScreenStateMachine() {}
 
@@ -45,5 +47,15 @@ void ScreenStateMachine::changeState(std::shared_ptr<IScreenState> state) {
     }
     if(mCurrentState != state) {
         mCurrentState = state;
+    }
+}
+
+void ScreenStateMachine::setBle(BLEPtr ble) {
+    mBle = ble;
+}
+
+void ScreenStateMachine::sendData(const std::string& data) {
+    if (mBle) {
+        mBle->sendData(data);
     }
 }

@@ -8,7 +8,5 @@ public:
 
 private:
     OTA() {}
-    static char ssid[32];
-    static char pass[32];
 
 };

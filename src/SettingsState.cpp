@@ -61,14 +61,14 @@ void SettingsState::draw(DisplayPtr display) {
 }
 
 void SettingsState::setupMenu() {
-    mListWidget->addItem(std::make_shared<TextButton>("MyButton1" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this](){ 
-        // do something upon button press
+    mListWidget->addItem(std::make_shared<TextButton>("Send data" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
+        mStateMachine->sendData("hopaaa!");
     }));
+    mListWidget->addItem(std::make_shared<TextButton>("MyButton1" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
     mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox1", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
     mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox2", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
     mListWidget->addItem(std::make_shared<TextButton>("MyButton2" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), []() {}));
     mListWidget->addItem(std::make_shared<TextButton>("MyButton3" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
-    mListWidget->addItem(std::make_shared<TextButton>("MyButton4" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
 
     mListWidget->setFocusedItem(0, true);
 }

@@ -5,6 +5,8 @@
 
 #include <memory>
 
+class BLE;
+using BLEPtr = std::shared_ptr<BLE>;
 
 class IScreenState {
 public:    
@@ -29,8 +31,13 @@ public:
     void draw();
     void changeState(std::shared_ptr<IScreenState> state);
 
+    void setBle(BLEPtr mBle);
+    //quick way to get some data via a button action
+    void sendData(const std::string& data);
+
 private:
     std::shared_ptr<IScreenState> mCurrentState;
     DisplayPtr mDisplay;
+    BLEPtr mBle;
 
 };
