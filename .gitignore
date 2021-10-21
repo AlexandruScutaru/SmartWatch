@@ -1,3 +1,4 @@
+# platformio/microcontroller side
 device_side/.pio
 device_side/.vscode/.browse.c_cpp.db*
 device_side/.vscode/c_cpp_properties.json
@@ -7,3 +8,34 @@ device_side/.gitignore
 device_side/include/credentials.h
 device_side/serial_display_renderer/build
 device_side/serial_display_renderer/deps
+
+# Xcode/iOS side
+.DS_Store
+## User settings
+ios_side/xcuserdata/
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+ios_side/*.xcscmblueprint
+ios_side/*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+ios_side/build/
+ios_side/DerivedData/
+ios_side/*.moved-aside
+ios_side/*.pbxuser
+!ios_side/default.pbxuser
+ios_side/*.mode1v3
+!ios_side/default.mode1v3
+ios_side/*.mode2v3
+!ios_side/default.mode2v3
+ios_side/*.perspectivev3
+!ios_side/default.perspectivev3
+
+## Gcc Patch
+ios_side/*.gcno
+
+ios_side/*.xcodeproj/*
+!ios_side/*.xcodeproj/project.pbxproj
+!ios_side/*.xcodeproj/xcshareddata/
+!ios_side/*.xcworkspace/contents.xcworkspacedata
+**/ios_side/xcshareddata/WorkspaceSettings.xcsettings
