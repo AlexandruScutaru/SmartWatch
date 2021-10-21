@@ -1,10 +1,7 @@
-# SmartWatch-MicrocontrollerSide
+# Microcontroller Side
 Basic smart watch based on the ESP32 microcontroller.
 
-This repo holds only the code that runs on the microcontroller. 
-Another repo might be added to hold an eventual mobile app used to control it.
-
-<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/watch.png" width="300"> <img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/serial_display.gif" width="600">
+<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/watch.png" width="30%"><img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/serial_display.gif" width="50%">
 
 ## Specifications:
 
@@ -17,3 +14,9 @@ Another repo might be added to hold an eventual mobile app used to control it.
 
 For now it is using the Arduino framework for ESP32, thinking of migrating to Espressif framework once I get more confortable with the device.
 Using an RTOS is also in planning.
+
+# Mobile App
+## iOS
+Used to connect to the watch and control it (set time, send notification info, etc).
+
+<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/ios_app.png" width="30%">
