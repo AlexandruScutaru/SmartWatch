@@ -23,10 +23,10 @@ struct TabViewItem: View
 struct ContentView: View {
     var body: some View {
         TabView(selection: .constant(1)) {
-            DeviceView().padding(.horizontal).tabItem {
+            DeviceTabView().padding(.horizontal).tabItem {
                 TabViewItem(tabName: "Device", imageName: "devices_icon")
             }.tag(1)
-            SettingsView().padding(.horizontal).tabItem {
+            SettingsTabView().padding(.horizontal).tabItem {
                 TabViewItem(tabName: "Settings", imageName: "settings_icon")
             }.tag(2)
         }.accentColor(.green)

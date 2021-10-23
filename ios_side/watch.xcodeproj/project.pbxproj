@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		950E7A862724161200D5012D /* BleUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E7A852724161200D5012D /* BleUUIDs.swift */; };
+		950E7A88272416EA00D5012D /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E7A87272416EA00D5012D /* BleManager.swift */; };
+		950E7A8A2724185D00D5012D /* BlePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E7A892724185D00D5012D /* BlePeripheral.swift */; };
+		9560D7C32723320B006B4FF4 /* DeviceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560D7C22723320B006B4FF4 /* DeviceInfoView.swift */; };
+		9560D7C527233223006B4FF4 /* DeviceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560D7C427233223006B4FF4 /* DeviceInfoModel.swift */; };
+		9560D7C72723323B006B4FF4 /* DeviceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9560D7C62723323B006B4FF4 /* DeviceVM.swift */; };
 		D9015DBF271E2A58004986C3 /* watchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9015DBE271E2A58004986C3 /* watchApp.swift */; };
 		D9015DC1271E2A58004986C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9015DC0271E2A58004986C3 /* ContentView.swift */; };
 		D9015DC3271E2A5B004986C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9015DC2271E2A5B004986C3 /* Assets.xcassets */; };
 		D9015DC6271E2A5B004986C3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9015DC5271E2A5B004986C3 /* Preview Assets.xcassets */; };
 		D9015DD1271E2A5B004986C3 /* watchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9015DD0271E2A5B004986C3 /* watchTests.swift */; };
 		D9015DDC271E2A5B004986C3 /* watchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9015DDB271E2A5B004986C3 /* watchUITests.swift */; };
-		D96927F9272177CB00E353B9 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96927F8272177CB00E353B9 /* DeviceView.swift */; };
-		D96927FB272177F300E353B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96927FA272177F300E353B9 /* SettingsView.swift */; };
+		D96927F9272177CB00E353B9 /* DeviceTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96927F8272177CB00E353B9 /* DeviceTabView.swift */; };
+		D96927FB272177F300E353B9 /* SettingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96927FA272177F300E353B9 /* SettingsTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		950E7A852724161200D5012D /* BleUUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleUUIDs.swift; sourceTree = "<group>"; };
+		950E7A87272416EA00D5012D /* BleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
+		950E7A892724185D00D5012D /* BlePeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlePeripheral.swift; sourceTree = "<group>"; };
+		9560D7C22723320B006B4FF4 /* DeviceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoView.swift; sourceTree = "<group>"; };
+		9560D7C427233223006B4FF4 /* DeviceInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoModel.swift; sourceTree = "<group>"; };
+		9560D7C62723323B006B4FF4 /* DeviceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceVM.swift; sourceTree = "<group>"; };
 		D9015DBB271E2A58004986C3 /* watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9015DBE271E2A58004986C3 /* watchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = watchApp.swift; sourceTree = "<group>"; };
 		D9015DC0271E2A58004986C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,8 +59,8 @@
 		D9015DD7271E2A5B004986C3 /* watchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = watchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9015DDB271E2A5B004986C3 /* watchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = watchUITests.swift; sourceTree = "<group>"; };
 		D9015DDD271E2A5B004986C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D96927F8272177CB00E353B9 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
-		D96927FA272177F300E353B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D96927F8272177CB00E353B9 /* DeviceTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTabView.swift; sourceTree = "<group>"; };
+		D96927FA272177F300E353B9 /* SettingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +88,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		951EFB362721CBB70098932D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9560D7C62723323B006B4FF4 /* DeviceVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		951EFB392721D9310098932D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9560D7C427233223006B4FF4 /* DeviceInfoModel.swift */,
+				950E7A852724161200D5012D /* BleUUIDs.swift */,
+				950E7A892724185D00D5012D /* BlePeripheral.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D9015DB2271E2A58004986C3 = {
 			isa = PBXGroup;
 			children = (
@@ -99,12 +129,14 @@
 		D9015DBD271E2A58004986C3 /* watch */ = {
 			isa = PBXGroup;
 			children = (
+				951EFB392721D9310098932D /* Models */,
+				951EFB362721CBB70098932D /* ViewModels */,
 				D96927F72721779000E353B9 /* Views */,
 				D9015DBE271E2A58004986C3 /* watchApp.swift */,
-				D9015DC0271E2A58004986C3 /* ContentView.swift */,
 				D9015DC2271E2A5B004986C3 /* Assets.xcassets */,
 				D9015DC7271E2A5B004986C3 /* Info.plist */,
 				D9015DC4271E2A5B004986C3 /* Preview Content */,
+				950E7A87272416EA00D5012D /* BleManager.swift */,
 			);
 			path = watch;
 			sourceTree = "<group>";
@@ -138,8 +170,10 @@
 		D96927F72721779000E353B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D96927F8272177CB00E353B9 /* DeviceView.swift */,
-				D96927FA272177F300E353B9 /* SettingsView.swift */,
+				D9015DC0271E2A58004986C3 /* ContentView.swift */,
+				D96927F8272177CB00E353B9 /* DeviceTabView.swift */,
+				D96927FA272177F300E353B9 /* SettingsTabView.swift */,
+				9560D7C22723320B006B4FF4 /* DeviceInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,9 +308,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9015DC1271E2A58004986C3 /* ContentView.swift in Sources */,
-				D96927FB272177F300E353B9 /* SettingsView.swift in Sources */,
+				D96927FB272177F300E353B9 /* SettingsTabView.swift in Sources */,
+				9560D7C32723320B006B4FF4 /* DeviceInfoView.swift in Sources */,
+				9560D7C527233223006B4FF4 /* DeviceInfoModel.swift in Sources */,
+				9560D7C72723323B006B4FF4 /* DeviceVM.swift in Sources */,
+				950E7A88272416EA00D5012D /* BleManager.swift in Sources */,
 				D9015DBF271E2A58004986C3 /* watchApp.swift in Sources */,
-				D96927F9272177CB00E353B9 /* DeviceView.swift in Sources */,
+				950E7A8A2724185D00D5012D /* BlePeripheral.swift in Sources */,
+				950E7A862724161200D5012D /* BleUUIDs.swift in Sources */,
+				D96927F9272177CB00E353B9 /* DeviceTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

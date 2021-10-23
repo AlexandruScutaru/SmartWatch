@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct SettingsTabView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             Toggle(isOn: /*@PLACEHOLDER=Is On@*/.constant(true)) {
@@ -25,6 +25,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsTabView()
     }
 }
