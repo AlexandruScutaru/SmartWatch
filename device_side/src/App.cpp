@@ -98,14 +98,6 @@ void App::loop() {
 }
 
 void App::update(double delta) {
-    /*
-        handle ota
-        get user input
-        update current state controls based on user input
-        handle state transitions based on predefined transitions
-        draw current state controls 
-    */
-
     OTA::handle();
 
     Input::Action userAction = mInput.getUserAction();
@@ -122,8 +114,7 @@ void App::draw() {
 void App::bleOnWrite(const std::string& data) {
     LOG_LN(data.c_str());
 
-    //just to get an indication that it works
-    static bool motor = true;
-    motor = !motor;
-    digitalWrite(PIN_VIBRATION_MOTOR, static_cast<uint8_t>(motor));
+    //damn :))
+    uint8_t value = String(data.c_str()).toInt();
+    digitalWrite(PIN_VIBRATION_MOTOR, static_cast<uint8_t>(value == 0));
 }

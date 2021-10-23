@@ -61,8 +61,8 @@ void SettingsState::draw(DisplayPtr display) {
 }
 
 void SettingsState::setupMenu() {
-    mListWidget->addItem(std::make_shared<TextButton>("Send data" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
-        mStateMachine->sendData("hopaaa!");
+    mListWidget->addItem(std::make_shared<TextButton>("Rand battery" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
+        mStateMachine->sendData(String(random(0, 101)).c_str());
     }));
     mListWidget->addItem(std::make_shared<TextButton>("MyButton1" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
     mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox1", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));

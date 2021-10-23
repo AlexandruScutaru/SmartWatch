@@ -9,8 +9,15 @@
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 
-#define SERVICE_UUID        "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
-#define CHARACTERISTIC_UUID "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+#define SERVICE_UUID                      "00000001-0000-1000-8000-00805f9b34fb"
+// read characteristics
+#define BATTERY_CHARACTERISTIC_UUID       "00000002-0000-1000-8000-00805f9b34fb"
+#define BT_MAC_CHARACTERISTIC_UUID        "00000003-0000-1000-8000-00805f9b34fb"
+#define WIFI_STATUS_CHARACTERISTIC_UUID   "00000004-0000-1000-8000-00805f9b34fb"
+#define WIFI_SSID_CHARACTERISTIC_UUID     "00000005-0000-1000-8000-00805f9b34fb"
+// write characteristics
+#define NOTIFICATION_CHARACTERISTIC_UUID  "00000006-0000-1000-8000-00805f9b34fb"
+
 
 //not sure what the rest of the methods do
 class BleCallbacks : public BLECharacteristicCallbacks {
@@ -46,13 +53,49 @@ BLE::BLE(const std::string& deviceName, const Callbacks& callbacks) {
     BLEDevice::init(deviceName);
     mServer = BLEDevice::createServer();
     mService = mServer->createService(SERVICE_UUID);
-    mCharacteristic = mService->createCharacteristic(
-        CHARACTERISTIC_UUID, 
-        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE | BLECharacteristic::PROPERTY_NOTIFY
-    );
 
-    mCharacteristic->setCallbacks(new BleCallbacks(callbacks));
-    mCharacteristic->setValue("I'm a SmartWatch");
+    BLECharacteristic* characteristic = nullptr;
+    //todo: do these in a better way, but for now they are just for testing
+    //battery level
+    characteristic = mService->createCharacteristic(
+        BATTERY_CHARACTERISTIC_UUID,
+        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY
+    );
+    characteristic->setValue("78");
+    mCharacteristics.push_back(characteristic);
+
+    //device mac
+    characteristic = mService->createCharacteristic(
+        BT_MAC_CHARACTERISTIC_UUID,
+        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY
+    );
+    characteristic->setValue("00:00:du:mm:y0:00:00:00");
+    mCharacteristics.push_back(characteristic);
+
+    //wifi status
+    characteristic = mService->createCharacteristic(
+        WIFI_STATUS_CHARACTERISTIC_UUID,
+        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY
+    );
+    characteristic->setValue("true");
+    mCharacteristics.push_back(characteristic);
+
+    //wifi ssid
+    characteristic = mService->createCharacteristic(
+        WIFI_SSID_CHARACTERISTIC_UUID,
+        BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY
+    );
+    characteristic->setValue("Wifi_Name");
+    mCharacteristics.push_back(characteristic);
+
+    //phone notification
+    characteristic = mService->createCharacteristic(
+        NOTIFICATION_CHARACTERISTIC_UUID,
+        BLECharacteristic::PROPERTY_WRITE
+    );
+    characteristic->setCallbacks(new BleCallbacks(callbacks));
+    mCharacteristics.push_back(characteristic);
+
     mService->start();
 
     // BLEAdvertising *pAdvertising = pServer->getAdvertising();    // this still is working for backward compatibility
@@ -67,7 +110,6 @@ BLE::BLE(const std::string& deviceName, const Callbacks& callbacks) {
 }
 
 BLE::~BLE() {
-    //not sure exactly if I have ownership of these
     if (mServer) {
         delete mServer;
         mServer = nullptr;
@@ -76,10 +118,10 @@ BLE::~BLE() {
         delete mService;
         mService = nullptr;
     }
-    if (mCharacteristic) {
-        delete mCharacteristic;
-        mCharacteristic = nullptr;
+    for (size_t i = 0; i < mCharacteristics.size(); i++) {
+        delete mCharacteristics[i];
     }
+    mCharacteristics.clear();
     if (mAdvertising) {
         delete mAdvertising;
         mAdvertising = nullptr;
@@ -87,8 +129,8 @@ BLE::~BLE() {
 }
 
 void BLE::sendData(const std::string& data) {
-    if (mCharacteristic) {
-        mCharacteristic->setValue(data.c_str());
-        mCharacteristic->notify();
+    if (const auto& characteristic = mCharacteristics[0]) {
+        characteristic->setValue(data);
+        characteristic->notify();
     }
 }

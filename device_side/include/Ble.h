@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vector.h"
+
 #include <Arduino.h>
 
 #include <functional>
@@ -31,7 +33,7 @@ public:
 private:
     BLEServer* mServer{ nullptr };
     BLEService* mService{ nullptr };
-    BLECharacteristic* mCharacteristic{ nullptr };
+    vector<BLECharacteristic*> mCharacteristics;
     BLEAdvertising* mAdvertising{ nullptr };
 
 };
