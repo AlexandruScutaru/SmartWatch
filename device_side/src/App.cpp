@@ -7,7 +7,7 @@
 #include "ClockFace.h"
 #include "Logger.h"
 
-//#define SERIAL_DISPLAY
+#define SERIAL_DISPLAY
 #if defined(SERIAL_DISPLAY)
     #include "SerialDisplay.h"
 #else
@@ -38,6 +38,8 @@ App::App()
     pinMode(PIN_BATTERY_LEVEL, INPUT);
 
     Serial.begin(115200);
+    while(!Serial);
+
     LOG_LN("Booting");
 
     OTA::init();
