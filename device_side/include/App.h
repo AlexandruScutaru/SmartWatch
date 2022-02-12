@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Display.h"
-#include "Input.h"
+#include "InputButton.h"
 #include "ScreenStateMachine.h"
 #include "Ble.h"
 
@@ -21,6 +21,7 @@ private:
     void draw();
 
     void bleOnWrite(const std::string& data);
+    void onUserAction(input::Action action);
 
     //app loop varaibles
     uint32_t mPrevTicks = 0U;
@@ -29,7 +30,7 @@ private:
     double delta = 0.0;
 
     DisplayPtr mDisplay;
-    Input mInput;
+    input::Button mInputButton;
     ScreenStateMachine mScreenStateMachine;
     BLEPtr mBle;
 };

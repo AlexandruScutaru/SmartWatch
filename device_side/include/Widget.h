@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Input.h"
 #include "vec2.h"
 
 #include <memory>
@@ -8,13 +7,16 @@
 class Display;
 using DisplayPtr = std::shared_ptr<Display>;
 
+namespace input {
+    enum class Action;
+}
 
 class Widget {
 public:
     Widget();
     virtual ~Widget();
 
-    void handle(Input::Action action);
+    void handle(input::Action action);
 
     virtual void setFocused(bool focus) {};
     virtual vec2 getPosition() { return vec2(); }

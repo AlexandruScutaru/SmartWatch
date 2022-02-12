@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "TextButton.h"
 #include "Checkbox.h"
+#include "InputButton.h"
 
 #define LIST_ITEM_WIDTH 124
 #define LIST_ITEM_HEIGHT 12
@@ -27,13 +28,13 @@ SettingsState::SettingsState(ScreenStateMachine* stateMachine)
     setupMenu();
 }
 
-void SettingsState::handle(Input::Action action) {
-    if (action == Input::Action::HOLD) {
+void SettingsState::handle(input::Action action) {
+    if (action == input::Action::LONG_PRESS) {
         mStateMachine->changeState(std::shared_ptr<IScreenState>(new MainScreenState(mStateMachine)));
         return;
     }
 
-    if (action != Input::Action::NONE) {
+    if (action != input::Action::NONE) {
         mTimer.reset();
     }
     mListWidget->handle(action);

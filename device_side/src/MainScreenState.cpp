@@ -2,6 +2,7 @@
 #include "MainMenuState.h"
 #include "IdleState.h"
 #include "ClockFace.h"
+#include "InputButton.h"
 
 
 MainScreenState::MainScreenState(ScreenStateMachine* stateMachine) 
@@ -16,14 +17,14 @@ MainScreenState::MainScreenState(ScreenStateMachine* stateMachine)
 }
 
 
-void MainScreenState::handle(Input::Action action) {
-    if (action != Input::Action::NONE) {
+void MainScreenState::handle(input::Action action) {
+    if (action != input::Action::NONE) {
         mTimer.reset();
     }
 
     switch (action)
     {
-    case Input::Action::DOUBLE_TAP:
+    case input::Action::DOUBLE_PRESS:
         mStateMachine->changeState(std::shared_ptr<IScreenState>(new MainMenuState(mStateMachine)));
         break;
     default:

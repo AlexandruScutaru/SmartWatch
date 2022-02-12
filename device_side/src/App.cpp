@@ -15,7 +15,6 @@
 #endif
 
 #define PIN_VIBRATION_MOTOR 16
-#define PIN_BUTTON_INPUT    4
 #define PIN_BATTERY_LEVEL   33
 
 #define TARGET_FPS          20
@@ -29,21 +28,16 @@
     implemnet messaging system
 */
 
-App::App() 
-    : mInput(Input(PIN_BUTTON_INPUT))
-{
-    pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
-    digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
-    pinMode(PIN_BUTTON_INPUT, INPUT_PULLUP);
-    pinMode(PIN_BATTERY_LEVEL, INPUT);
-
+App::App() {
     Serial.begin(115200);
     while(!Serial);
-
     LOG_LN("Booting");
 
+    pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
+    digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
+    pinMode(PIN_BATTERY_LEVEL, INPUT);
+
     OTA::init();
-    mInput.init();
 
 #if defined(SERIAL_DISPLAY)
     mDisplay = std::make_shared<SerialDisplay>(128, 64, -1);
@@ -71,6 +65,10 @@ App::App()
     }
 
     mScreenStateMachine.setState(std::shared_ptr<IScreenState>(new MainScreenState(&mScreenStateMachine)));
+
+    mInputButton.setCallback([this](input::Action action) {
+        onUserAction(action);
+    });
 
     LOG_LN("Setup done");
 }
@@ -101,9 +99,7 @@ void App::loop() {
 
 void App::update(double delta) {
     OTA::handle();
-
-    Input::Action userAction = mInput.getUserAction();
-    mScreenStateMachine.handle(userAction);
+    mInputButton.update();
     mScreenStateMachine.update(delta);
     CLOCK_FACE.update(delta);
 }
@@ -119,4 +115,8 @@ void App::bleOnWrite(const std::string& data) {
     //damn :))
     uint8_t value = String(data.c_str()).toInt();
     digitalWrite(PIN_VIBRATION_MOTOR, static_cast<uint8_t>(value == 0));
+}
+
+void App::onUserAction(input::Action action) {
+    mScreenStateMachine.handle(action);
 }

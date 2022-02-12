@@ -23,7 +23,7 @@ std::shared_ptr<IScreenState> ScreenStateMachine::getCurrentState() {
     return mCurrentState;
 }
 
-void ScreenStateMachine::handle(Input::Action action) {
+void ScreenStateMachine::handle(input::Action action) {
     if (mCurrentState) {
         mCurrentState->handle(action);
     }

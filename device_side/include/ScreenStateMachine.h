@@ -1,16 +1,19 @@
 #pragma once
 
 #include "Display.h"
-#include "Input.h"
 
 #include <memory>
 
 class BLE;
 using BLEPtr = std::shared_ptr<BLE>;
 
+namespace input {
+    enum class Action;
+}
+
 class IScreenState {
 public:    
-    virtual void handle(Input::Action action) = 0;
+    virtual void handle(input::Action action) = 0;
     virtual void update(double dt) = 0;
     virtual void draw(DisplayPtr display) = 0;
 };
@@ -26,7 +29,7 @@ public:
     void setState(std::shared_ptr<IScreenState> state);
     std::shared_ptr<IScreenState> getCurrentState();
 
-    void handle(Input::Action action);
+    void handle(input::Action action);
     void update(double dt);
     void draw();
     void changeState(std::shared_ptr<IScreenState> state);

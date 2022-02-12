@@ -1,23 +1,24 @@
 #include "Widget.h"
+#include "InputButton.h"
 
 
 Widget::Widget() {}
 
 Widget::~Widget() {}
 
-void Widget::handle(Input::Action action) {
+void Widget::handle(input::Action action) {
     switch (action)
     {
-        case Input::Action::SINGLE_TAP:
+        case input::Action::SINGLE_PRESS:
             onSingleTap();
             break;
-        case Input::Action::DOUBLE_TAP:
+        case input::Action::DOUBLE_PRESS:
             onDoubleTap();
             break;
-        case Input::Action::TRIPLE_TAP:
+        case input::Action::TRIPLE_PRESS:
             onTripleTap();
             break;
-        case Input::Action::LONG_HOLD:
+        case input::Action::LONG_PRESS:
             onLongPress();
             break;
         default:

@@ -11,7 +11,7 @@ class MainMenuState : public IScreenState {
 public:
     MainMenuState(ScreenStateMachine* stateMachine);
 
-    void handle(Input::Action action) override;
+    void handle(input::Action action) override;
     void update(double dt) override;
     void draw(DisplayPtr display) override;
 
