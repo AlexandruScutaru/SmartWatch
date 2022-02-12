@@ -12,10 +12,12 @@ SerialDisplay::SerialDisplay(uint8_t w, uint8_t h, int8_t rst)
 
 
 void SerialDisplay::display() {
+#ifdef WRITE_SERIAL_DISPLAY
     auto buffer = mDisplay.getBuffer();
     if (buffer) {
         Serial.print("<b>");
         Serial.write(buffer, mBuffLen);
         Serial.println("</b>");
     }
+#endif
 }

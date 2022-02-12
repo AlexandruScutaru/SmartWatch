@@ -4,8 +4,10 @@
 
 #include <memory>
 
-class BLE;
-using BLEPtr = std::shared_ptr<BLE>;
+namespace ble {
+    class Server;
+    using ServerPtr = std::shared_ptr<Server>;
+}
 
 namespace input {
     enum class Action;
@@ -34,13 +36,13 @@ public:
     void draw();
     void changeState(std::shared_ptr<IScreenState> state);
 
-    void setBle(BLEPtr mBle);
+    void setBle(ble::ServerPtr mBle);
     //quick way to get some data via a button action
     void sendData(const std::string& data);
 
 private:
     std::shared_ptr<IScreenState> mCurrentState;
     DisplayPtr mDisplay;
-    BLEPtr mBle;
+    ble::ServerPtr mBle;
 
 };

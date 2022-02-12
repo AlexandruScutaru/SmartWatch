@@ -6,6 +6,8 @@
 #include "Ota.h"
 #include "ClockFace.h"
 #include "Logger.h"
+#include "BleCharacteristicsHelper.h"
+#include "BleServerHelper.h"
 
 #if defined(SERIAL_DISPLAY)
     #include "SerialDisplay.h"
@@ -49,11 +51,7 @@ App::App() {
 #endif
     mDisplay->init();
 
-    Callbacks bleCallbacks;
-    bleCallbacks.write = [this](const std::string& data) { 
-        bleOnWrite(data);
-    };
-    mBle = std::make_shared<BLE>("ESP32-Watch", bleCallbacks);
+    initBle();
 
     mScreenStateMachine.init(mDisplay);
     mScreenStateMachine.setBle(mBle);
@@ -78,6 +76,26 @@ App::App() {
 
 App::~App() {}
 
+
+void App::initBle() {
+    ble::CharacteristicCallbacksArray bleCallbacks;
+    bleCallbacks[index(ble::CharacteristicTypes::NOTIFICATION)].mWriteFunc = [this](const std::string& data) {
+        //damn :))
+        uint8_t value = String(data.c_str()).toInt();
+        digitalWrite(PIN_VIBRATION_MOTOR, static_cast<uint8_t>(value == 0));
+    };
+
+    bleCallbacks[index(ble::CharacteristicTypes::WIFI_STATUS)].mReadFunc = [this](std::string& data) {
+        data = "dummy status";
+    };
+
+    bleCallbacks[index(ble::CharacteristicTypes::TIME)].mWriteFunc = [this](const std::string& data) {
+        LOG_LN(data.c_str());
+    };
+
+    auto bleCharacteristicsBuilder = ble::CharacteristicsBuilder(bleCallbacks);
+    mBle = std::make_shared<ble::Server>("ESP32-Watch", bleCharacteristicsBuilder.getCharacteristics());
+}
 
 void App::run() {
     mPrevTicks = millis();
@@ -109,15 +127,6 @@ void App::update(double delta) {
 
 void App::draw() {
     mScreenStateMachine.draw();
-}
-
-
-void App::bleOnWrite(const std::string& data) {
-    LOG_LN(data.c_str());
-
-    //damn :))
-    uint8_t value = String(data.c_str()).toInt();
-    digitalWrite(PIN_VIBRATION_MOTOR, static_cast<uint8_t>(value == 0));
 }
 
 void App::onUserAction(input::Action action) {

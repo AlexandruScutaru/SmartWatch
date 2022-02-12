@@ -3,10 +3,14 @@
 #include "Display.h"
 #include "InputButton.h"
 #include "ScreenStateMachine.h"
-#include "Ble.h"
 
 #include <cstdint>
 
+
+namespace ble {
+    class Server;
+    using ServerPtr = std::shared_ptr<Server>;
+}
 
 class App {
 public:
@@ -16,11 +20,12 @@ public:
     void run();
 
 private:
+    void initBle();
+
     void loop();
     void update(double delta);
     void draw();
 
-    void bleOnWrite(const std::string& data);
     void onUserAction(input::Action action);
 
     //app loop varaibles
@@ -32,5 +37,5 @@ private:
     DisplayPtr mDisplay;
     input::Button mInputButton;
     ScreenStateMachine mScreenStateMachine;
-    BLEPtr mBle;
+    ble::ServerPtr mBle;
 };
