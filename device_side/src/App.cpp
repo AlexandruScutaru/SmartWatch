@@ -7,7 +7,6 @@
 #include "ClockFace.h"
 #include "Logger.h"
 
-#define SERIAL_DISPLAY
 #if defined(SERIAL_DISPLAY)
     #include "SerialDisplay.h"
 #else
@@ -29,8 +28,12 @@
 */
 
 App::App() {
+
+#ifdef SHOULD_LOG
     Serial.begin(115200);
     while(!Serial);
+#endif
+
     LOG_LN("Booting");
 
     pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
