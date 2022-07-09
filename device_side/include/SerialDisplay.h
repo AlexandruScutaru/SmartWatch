@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Display.h"
+#include "WebSocket.h"
 
 
 class SerialDisplay : public Display{
@@ -11,5 +12,6 @@ public:
 
 private:
     uint16_t mBuffLen = 0;
+    web::WebSocket mWebSocket;
 
 };

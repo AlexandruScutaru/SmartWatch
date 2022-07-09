@@ -6,6 +6,10 @@
 
 #include <cstdint>
 
+namespace web {
+    class WebSocket;
+    using WebSocketPtr = std::shared_ptr<WebSocket>;
+}
 
 namespace ble {
     class Server;
@@ -20,6 +24,8 @@ public:
     void run();
 
 private:
+    void initWifi();
+    void initLogger();
     void initBle();
 
     void loop();
@@ -38,4 +44,5 @@ private:
     input::Button mInputButton;
     ScreenStateMachine mScreenStateMachine;
     ble::ServerPtr mBle;
+    web::WebSocketPtr mLoggerWebSocket;
 };
