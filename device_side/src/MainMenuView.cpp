@@ -41,13 +41,13 @@ void MainMenuView::draw(DisplayPtr display) {
 }
 
 void MainMenuView::setupMenu() {
-    mListWidget->addItem(std::make_shared<IconButton>(Icon::GAMES, "Games", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
+    mListWidget->addItem(std::make_shared<IconButton>(icons::IconType::GAMES, "Games", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
 
-    mListWidget->addItem(std::make_shared<IconButton>(Icon::SETTINGS, "Settings", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
+    mListWidget->addItem(std::make_shared<IconButton>(icons::IconType::SETTINGS, "Settings", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
         mStackView.push(IViewPtr(new SettingsView(mStackView)));
     }));
 
-    mListWidget->addItem(std::make_shared<IconButton>(Icon::GAMES, "SomeOther", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
+    mListWidget->addItem(std::make_shared<IconButton>(icons::IconType::UNKNOWN, "SomeOther", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
 
     mListWidget->setFocusedItem(0, true);
 }

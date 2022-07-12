@@ -48,7 +48,7 @@ void Checkbox::drawAt(DisplayPtr display, const vec2& pos) {
     display->fillRect(mSize.x - 13, pos.y, 12, 12, color);
     display->fillRect(mSize.x - 12, pos.y + 1, 10, 10, bg);
     if (mState) {
-        display->drawBitmap(mSize.x - 11, pos.y + 2, Icons::getIcon8(Icon::CHECK_MARK), 8, 8, color, bg);
+        display->drawBitmap(mSize.x - 11, pos.y + 2, icons::getIcon8(icons::IconType::CHECK_MARK), 8, 8, color, bg);
     }
 }
 

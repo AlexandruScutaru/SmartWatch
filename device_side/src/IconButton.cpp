@@ -4,7 +4,7 @@
 #include "Icons.h"
 
 
-IconButton::IconButton(Icon icon, const char* text, const vec2& pos, const vec2& size, OnClickFunction func)
+IconButton::IconButton(icons::IconType icon, const char* text, const vec2& pos, const vec2& size, OnClickFunction func)
     : Button(text, pos, size, func)
     , mIcon(icon)
 {}
@@ -19,10 +19,10 @@ void IconButton::drawAt(DisplayPtr display, const vec2& pos) {
             display->setCursor((128 - strlen(mText) * 6) / 2, 4);
             display->print(mText);
         }
-        icon = Icons::getIcon32(mIcon);
+        icon = icons::getIcon32(mIcon);
         factor = 2;
     } else {
-        icon = Icons::getIcon16(mIcon);
+        icon = icons::getIcon16(mIcon);
     }
 
     if (icon) {
