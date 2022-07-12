@@ -1,6 +1,7 @@
 #include "WebSocket.h"
 #include "Logger.h"
 
+#include <string>
 
 namespace web {
     namespace {
@@ -8,30 +9,41 @@ namespace web {
             switch (eventType)
             {
                 case WStype_CONNECTED:
-                {
-                    IPAddress ip = webSocket.remoteIP(clientId);
-                    LOG_LN("Client " << clientId << " connected! IP: " << ip[0] << "." << ip[1] << "." << ip[2] << "." << ip[3] << " url: " << data);
-                    if (callbacks.mOnConnectedFunc) {
-                        callbacks.mOnConnectedFunc(clientId);
+                    {
+                        IPAddress ip = webSocket.remoteIP(clientId);
+                        std::string text(data, data + length);
+                        LOG_LN("Client ID " << (int)clientId << " connected! IP: " << ip.toString() << " url: " << text);
+                        if (callbacks.mOnConnectedFunc) {
+                            callbacks.mOnConnectedFunc(clientId);
+                        }
                     }
-                }
+                    break;
                 case WStype_DISCONNECTED:
-                    LOG_LN("Client " << clientId << " disconnected!");
+                    LOG_LN("Client ID " << (int)clientId << " disconnected!");
                     if (callbacks.mOnDisconnectedFunc) {
                         callbacks.mOnDisconnectedFunc(clientId);
                     }
                     break;
                 case WStype_TEXT:
-                    LOG_LN("Client " << clientId << " sent some text data");
-                    if (callbacks.mOnTextReceiveFunc) {
-                        callbacks.mOnTextReceiveFunc(clientId, data, length);
+                    {
+                        std::string text(data, data + length);
+                        LOG_LN("Client ID " << (int)clientId << " sent some text data: " << text);
+                        if (callbacks.mOnTextReceiveFunc) {
+                            callbacks.mOnTextReceiveFunc(clientId, data, length);
+                        }
                     }
                     break;
                 case WStype_BIN:
-                    LOG_LN("Client " << clientId << " sent some binary data");
+                    LOG_LN("Client ID " << (int)clientId << " sent some binary data");
                     if (callbacks.mOnBinReceiveFunc) {
                         callbacks.mOnBinReceiveFunc(clientId, data, length);
                     }
+                    break;
+                case WStype_PING:
+                    LOG_LN("Client ID " << (int)clientId << " sent PING");
+                    break;
+                case WStype_PONG:
+                    LOG_LN("Client ID " << (int)clientId << " sent PONG");
                     break;
                 case WStype_ERROR:
                 case WStype_FRAGMENT_TEXT_START:
@@ -39,7 +51,7 @@ namespace web {
                 case WStype_FRAGMENT:
                 case WStype_FRAGMENT_FIN:
                 default:
-                    LOG_LN("Client " << clientId << " triggered other type of WStype_t event");
+                    LOG_LN("Client ID " << (int)clientId << " triggered other type of WStype_t event: " << (int)eventType);
                     break;
             }
         }

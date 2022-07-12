@@ -1,6 +1,6 @@
 var ws_logging;
 
-var keepAliveTimer = null;
+var keepAliveTimer = 0;
 
 function init() {
     ws_logging = new WebSocket("ws://192.168.1.141:80");
@@ -22,18 +22,23 @@ function init() {
     };
 
     ws_logging.onclose = function() {
-       console.log("ws connection closed...");
-       keepAliveTimer = null
+        console.log("ws connection closed...");
+        cancelKeepAlive();
     };
 
     keepAlive()
  }
 
 function keepAlive() {
-    console.log("timer fired")
     if (ws_logging.readyState == WebSocket.OPEN) {
-        ws_logging.send('');
+        ws_logging.send('keepalive');
     }
 
     keepAliveTimer = setTimeout(keepAlive, 20000);
+}
+
+function cancelKeepAlive() {
+    if (keepAliveTimer) {
+        clearTimeout(keepAliveTimer);
+    }
 }
