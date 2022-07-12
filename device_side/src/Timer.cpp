@@ -3,13 +3,6 @@
 #include <Arduino.h>
 
 
-void Timer::start() {
-    if (mStopped && mPeriod) {
-        mStartTime = millis();
-        mStopped = false;
-    }
-}
-
 void Timer::start(uint32_t period, bool singleShot, TimerFunction func) {
     mPeriod = period;
     mFunc = func;
@@ -43,5 +36,12 @@ void Timer::update() {
             return;
         }
         mStartTime = millis();
+    }
+}
+
+void Timer::restart() {
+    if (mPeriod) {
+        mStartTime = millis();
+        mStopped = false;
     }
 }

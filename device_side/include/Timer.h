@@ -6,9 +6,9 @@ using TimerFunction = std::function<void(void)>;
 
 class Timer {
 public:
-    void start();
     void start(uint32_t period, bool singleShot, TimerFunction func);
     void reset();
+    void restart();
 
     void stop();
     void update();

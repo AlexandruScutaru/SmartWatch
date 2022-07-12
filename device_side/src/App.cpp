@@ -1,10 +1,7 @@
 #include "App.h"
 
-#include "ScreenStateMachine.h"
-#include "IdleState.h"
-#include "MainScreenState.h"
 #include "Ota.h"
-#include "ClockFace.h"
+#include "TimeData.h"
 #include "Logger.h"
 #include "BleCharacteristicsHelper.h"
 #include "BleServerHelper.h"
@@ -26,14 +23,11 @@
 #define TARGET_FRAME_TICKS  (1000 / TARGET_FPS)
 
 
-//TODO:
-/*
-    implement minimal GUI system with control events
-    implement timer logic
-    implemnet messaging system
-*/
-
 App::App() {
+    pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
+    digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
+    pinMode(PIN_BATTERY_LEVEL, INPUT);
+
     Serial.begin(115200);
     while(!Serial);
 
@@ -47,30 +41,10 @@ App::App() {
     initWifi();
     initLogger();
 
-    LOG_LN("Booting");
-
-    pinMode(PIN_VIBRATION_MOTOR, OUTPUT);
-    digitalWrite(PIN_VIBRATION_MOTOR, HIGH);
-    pinMode(PIN_BATTERY_LEVEL, INPUT);
-
     OTA::init();
+    //initBle();
 
-
-    initBle();
-
-    mScreenStateMachine.init(mDisplay);
-    mScreenStateMachine.setBle(mBle);
-
-    // Show initial display buffer contents on the screen --
-    // the library initializes this with an Adafruit splash screen.
-    if (mDisplay) {
-        mDisplay->display();
-        delay(2000);
-        mDisplay->clear();
-        mDisplay->display();
-    }
-
-    mScreenStateMachine.setState(std::shared_ptr<IScreenState>(new MainScreenState(&mScreenStateMachine)));
+    mStackView.init(mDisplay);
 
     mInputButton.setCallback([this](input::Action action) {
         onUserAction(action);
@@ -96,7 +70,8 @@ void App::initWifi() {
 
     mDisplay->clear();
     mDisplay->print(WiFi.localIP().toString());
-    delay(2000);
+    mDisplay->display();
+    delay(2000); // give some time to see what IP was assigned to it
 }
 
 void App::initLogger() {
@@ -107,8 +82,10 @@ void App::initLogger() {
 
 #if defined(SERIAL_LOGGER)
     logging::initSerialLogger();
+    LOG_LN("serial logger inited");
 #elif defined(WS_LOGGER)
     mLoggerWebSocket = logging::initWebSocketLogger();
+    LOG_LN("websocket logger inited");
 #endif
 }
 
@@ -160,15 +137,15 @@ void App::update(double delta) {
 
     OTA::handle();
     mInputButton.update();
-    mScreenStateMachine.update(delta);
-    CLOCK_FACE.update(delta);
+    mStackView.update(delta);
+    CLOCK_TIME.update(delta);
 }
 
 void App::draw() {
-    mScreenStateMachine.draw();
+    mStackView.draw();
 }
 
 void App::onUserAction(input::Action action) {
-    LOG_LN("inputAction " << static_cast<int>(action));
-    mScreenStateMachine.handle(action);
+    LOG_LN("user input action: " << static_cast<int>(action));
+    mStackView.handle(action);
 }

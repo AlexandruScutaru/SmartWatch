@@ -1,15 +1,15 @@
 #pragma once
 
-#include "ScreenStateMachine.h"
-#include "Timer.h"
+#include "IView.h"
 #include "Widget.h"
 
 class ListWidget;
+class StackView;
 
-
-class SettingsState : public IScreenState {
+class SettingsView : public IView {
 public:
-    SettingsState(ScreenStateMachine* stateMachine);
+    SettingsView(StackView& stackView);
+    ~SettingsView();
 
     void handle(input::Action action) override;
     void update(double dt) override;
@@ -18,8 +18,7 @@ public:
 private:
     void setupMenu();
 
-    ScreenStateMachine* mStateMachine;
-    Timer mTimer;
     std::shared_ptr<ListWidget> mListWidget;
+    StackView& mStackView;
 
 };

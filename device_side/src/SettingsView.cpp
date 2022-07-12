@@ -1,12 +1,11 @@
-#include "SettingsState.h"
-#include "MainScreenState.h"
-#include "IdleState.h"
+#include "SettingsView.h"
 #include "ListWidget.h"
 #include "VListWidgetDrawStrategy.h"
 #include "Logger.h"
 #include "TextButton.h"
 #include "Checkbox.h"
-#include "InputButton.h"
+#include "StackView.h"
+#include "Display.h"
 
 #define LIST_ITEM_WIDTH 124
 #define LIST_ITEM_HEIGHT 12
@@ -14,37 +13,25 @@
 #define NAME "Settings"
 
 
-SettingsState::SettingsState(ScreenStateMachine* stateMachine) 
-    : IScreenState()
+SettingsView::SettingsView(StackView& stackView)
+    : mStackView(stackView)
 {
-    mStateMachine = stateMachine;
-    mTimer.start(5000, true, [stateMachine]() {
-        if (stateMachine) {
-            stateMachine->changeState(std::shared_ptr<IScreenState>(new IdleState(stateMachine)));
-        }
-    });
-
+    LOG_LN("SettingsView::ctor");
     mListWidget = std::make_shared<ListWidget>(vec2(0, 16), vec2(128, 48), IListWidgetDrawStrategyPtr(new VListWidgetDrawStrategy()));
     setupMenu();
 }
 
-void SettingsState::handle(input::Action action) {
-    if (action == input::Action::LONG_PRESS) {
-        mStateMachine->changeState(std::shared_ptr<IScreenState>(new MainScreenState(mStateMachine)));
-        return;
-    }
+SettingsView::~SettingsView() {
+    LOG_LN("SettingsView::dtor");
+}
 
-    if (action != input::Action::NONE) {
-        mTimer.reset();
-    }
+void SettingsView::handle(input::Action action) {
     mListWidget->handle(action);
 }
 
-void SettingsState::update(double dt) {
-    mTimer.update();
-}
+void SettingsView::update(double dt) {}
 
-void SettingsState::draw(DisplayPtr display) {
+void SettingsView::draw(DisplayPtr display) {
     if (!display) {
         return;
     }
@@ -61,9 +48,9 @@ void SettingsState::draw(DisplayPtr display) {
     display->display();
 }
 
-void SettingsState::setupMenu() {
+void SettingsView::setupMenu() {
     mListWidget->addItem(std::make_shared<TextButton>("Rand battery" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
-        mStateMachine->sendData(String(random(0, 101)).c_str());
+        // find a (better) way to do this
     }));
     mListWidget->addItem(std::make_shared<TextButton>("MyButton1" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
     mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox1", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));

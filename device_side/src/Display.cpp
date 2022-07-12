@@ -1,5 +1,4 @@
 #include "Display.h"
-#include "Logger.h"
 
 #include <SPI.h>
 #include <Wire.h>
@@ -14,7 +13,6 @@ Display::Display(uint8_t w, uint8_t h, int8_t rst)
 void Display::init() {
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
     if(!mDisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-        LOG_LN("Display buffer allocation failed");
         delay(2000);
         ESP.restart();
     }

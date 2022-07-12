@@ -2,7 +2,7 @@
 
 #include "Display.h"
 #include "InputButton.h"
-#include "ScreenStateMachine.h"
+#include "StackView.h"
 
 #include <cstdint>
 
@@ -42,7 +42,8 @@ private:
 
     DisplayPtr mDisplay;
     input::Button mInputButton;
-    ScreenStateMachine mScreenStateMachine;
+    StackView mStackView;
     ble::ServerPtr mBle;
     web::WebSocketPtr mLoggerWebSocket;
+
 };
