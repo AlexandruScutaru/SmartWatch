@@ -1,7 +1,8 @@
 # Microcontroller Side
 Basic smart watch based on the ESP32 microcontroller.
 
-<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/watch.png" width="30%"><img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/serial_display.gif" width="50%">
+<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/watch.png" width="30%">
+<img src="https://github.com/AlexandruScutaru/SmartWatch-MicrocontrollerSide/blob/master/doc_resources/serial_display.gif" width="55%">
 
 ## Specifications:
 
