@@ -16,12 +16,15 @@ MainMenuView::MainMenuView(StackView& stackView)
     : mStackView(stackView)
 {
     LOG_LN("MainMenuView::ctor");
-    mListWidget = std::make_shared<ListWidget>(vec2(0, 16), vec2(128, 48), IListWidgetDrawStrategyPtr(new IconListWidgetDrawStrategy()));
-    setupMenu();
 }
 
 MainMenuView::~MainMenuView() {
     LOG_LN("MainMenuView::dtor");
+}
+
+void MainMenuView::init() {
+    mListWidget = std::make_shared<ListWidget>(vec2(0, 16), vec2(128, 48), IListWidgetDrawStrategyPtr(new IconListWidgetDrawStrategy()));
+    setupMenu();
 }
 
 void MainMenuView::handle(input::Action action) {
@@ -44,7 +47,7 @@ void MainMenuView::setupMenu() {
     mListWidget->addItem(std::make_shared<IconButton>(icons::IconType::GAMES, "Games", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
 
     mListWidget->addItem(std::make_shared<IconButton>(icons::IconType::SETTINGS, "Settings", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
-        mStackView.push(IViewPtr(new SettingsView(mStackView)));
+        mStackView.push(views::Create<SettingsView>(mStackView));
     }));
 
     mListWidget->addItem(std::make_shared<IconButton>(icons::IconType::UNKNOWN, "SomeOther", vec2(0, 16), vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));

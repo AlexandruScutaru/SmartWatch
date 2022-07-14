@@ -11,16 +11,19 @@ MainScreenView::MainScreenView(StackView& stackView)
     : mStackView(stackView)
 {
     LOG_LN("MainScreenView::ctor");
-    mClockFace.setClockFaceDrawStrategy(IClockFaceDrawStrategyPtr(new DigitalClockFaceDrawStrategy));
 }
 
 MainScreenView::~MainScreenView() {
     LOG_LN("MainScreenView::dtor");
 }
 
+void MainScreenView::init() {
+    mClockFace.setClockFaceDrawStrategy(IClockFaceDrawStrategyPtr(new DigitalClockFaceDrawStrategy));
+}
+
 void MainScreenView::handle(input::Action action) {
     if (action == input::Action::DOUBLE_PRESS) {
-        mStackView.push(IViewPtr(new MainMenuView(mStackView)));
+        mStackView.push(views::Create<MainMenuView>(mStackView));
     }
 }
 

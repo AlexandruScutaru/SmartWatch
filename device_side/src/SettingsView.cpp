@@ -6,6 +6,7 @@
 #include "Checkbox.h"
 #include "StackView.h"
 #include "Display.h"
+#include "SettingsPresenter.h"
 
 #define LIST_ITEM_WIDTH 124
 #define LIST_ITEM_HEIGHT 12
@@ -17,12 +18,20 @@ SettingsView::SettingsView(StackView& stackView)
     : mStackView(stackView)
 {
     LOG_LN("SettingsView::ctor");
-    mListWidget = std::make_shared<ListWidget>(vec2(0, 16), vec2(128, 48), IListWidgetDrawStrategyPtr(new VListWidgetDrawStrategy()));
-    setupMenu();
 }
 
 SettingsView::~SettingsView() {
     LOG_LN("SettingsView::dtor");
+}
+
+void SettingsView::init() {
+    mPresenter = std::make_shared<SettingsPresenter>(IViewWeakPtr(getPtr()));
+    mListWidget = std::make_shared<ListWidget>(vec2(0, 16), vec2(128, 48), IListWidgetDrawStrategyPtr(new VListWidgetDrawStrategy()));
+    setupMenu();
+}
+
+SettingsViewPtr SettingsView::getPtr() {
+    return shared_from_this();
 }
 
 void SettingsView::handle(input::Action action) {
@@ -49,14 +58,17 @@ void SettingsView::draw(DisplayPtr display) {
 }
 
 void SettingsView::setupMenu() {
-    mListWidget->addItem(std::make_shared<TextButton>("Rand battery" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
-        // find a (better) way to do this
+    mListWidget->addItem(std::make_shared<TextButton>("MyButton" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
+        mPresenter->myButtonPressed();
     }));
-    mListWidget->addItem(std::make_shared<TextButton>("MyButton1" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
-    mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox1", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
-    mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox2", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
-    mListWidget->addItem(std::make_shared<TextButton>("MyButton2" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), []() {}));
-    mListWidget->addItem(std::make_shared<TextButton>("MyButton3" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT)));
+
+    mListWidget->addItem(std::make_shared<Checkbox>("MyCheckbox", vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this](bool state) {
+        mPresenter->myCheckboxToggled(state);
+    }));
+
+    mListWidget->addItem(std::make_shared<TextButton>("Back" , vec2(LIST_ITEM_WIDTH, LIST_ITEM_HEIGHT), [this]() {
+        mStackView.popLater();
+    }));
 
     mListWidget->setFocusedItem(0, true);
 }

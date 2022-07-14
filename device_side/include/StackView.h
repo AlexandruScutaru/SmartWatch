@@ -22,6 +22,7 @@ public:
 
     void push(IViewPtr view);
     IViewPtr pop();
+    void popLater();
     IViewPtr peek();
 
     void handle(input::Action action);
@@ -31,6 +32,7 @@ public:
 private:
     void clear();
 
+    bool mPopLater{ false };
     DisplayPtr mDisplay;
     Timer mTimer;
     std::vector<IViewPtr> mStack;

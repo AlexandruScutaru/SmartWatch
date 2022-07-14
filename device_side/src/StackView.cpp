@@ -10,7 +10,7 @@ static int SCREEN_TIMEOUT = 5000;
 
 void StackView::init(DisplayPtr display) {
     mDisplay = display;
-    push(IViewPtr(new MainScreenView(*this)));
+    push(views::Create<MainScreenView>(*this));
 
     mTimer.start(SCREEN_TIMEOUT, true, [this]() {
         LOG_LN("Screen timeout");
@@ -35,6 +35,10 @@ IViewPtr StackView::pop() {
     return view;
 }
 
+void StackView::popLater() {
+    mPopLater = true;
+}
+
 IViewPtr StackView::peek() {
     if (mStack.empty()) {
         return IViewPtr();
@@ -50,7 +54,7 @@ void StackView::handle(input::Action action) {
     mTimer.restart();
 
     if (action == input::Action::DOUBLE_PRESS && mStack.empty()) {
-        push(IViewPtr(new MainScreenView(*this)));
+        push(views::Create<MainScreenView>(*this));
         return;
     }
 
@@ -77,6 +81,11 @@ void StackView::update(double dt) {
 
     if (auto view = mStack.back()) {
         view->update(dt);
+    }
+
+    if (mPopLater && mStack.size() > 1) {
+        pop();
+        mPopLater = false;
     }
 }
 
