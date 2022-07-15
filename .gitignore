@@ -5,7 +5,7 @@ device_side/.vscode/c_cpp_properties.json
 device_side/.vscode/launch.json
 device_side/.vscode/ipch
 device_side/.gitignore
-device_side/include/credentials.h
+device_side/src/credentials.h
 device_side/serial_display_renderer/build
 device_side/serial_display_renderer/deps
 

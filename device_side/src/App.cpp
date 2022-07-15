@@ -1,17 +1,18 @@
 #include "App.h"
 
-#include "Ota.h"
-#include "TimeData.h"
-#include "Logger.h"
-#include "BleCharacteristicsHelper.h"
-#include "BleServerHelper.h"
-#include "WebSocket.h"
+#include "Ota/Ota.h"
+#include "Bluetooth/BleCharacteristicsHelper.h"
+#include "Bluetooth/BleServerHelper.h"
+#include "Web/WebSocket.h"
 #include "credentials.h"
+#include "Misc/TimeData.h"
+#include "Misc/Logger.h"
+#include "Misc/BatteryLevelReader.h"
 
 #if defined(SERIAL_DISPLAY)
-    #include "SerialDisplay.h"
+    #include "Display/SerialDisplay.h"
 #else
-    #include "OledDisplay.h"
+    #include "Display/OledDisplay.h"
 #endif
 
 #include <WiFi.h>
@@ -139,6 +140,7 @@ void App::update(double delta) {
     mInputButton.update();
     mStackView.update(delta);
     CLOCK_TIME.update(delta);
+    BATTERY_LEVEL_READER.update(delta);
 }
 
 void App::draw() {
