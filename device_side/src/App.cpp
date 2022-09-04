@@ -8,6 +8,9 @@
 #include "Misc/TimeData.h"
 #include "Misc/Logger.h"
 #include "Misc/BatteryLevelReader.h"
+#include "Misc/EventBus.h"
+#include "Misc/EventTypes.h"
+
 
 #if defined(SERIAL_DISPLAY)
     #include "Display/SerialDisplay.h"
@@ -50,6 +53,8 @@ App::App() {
     mInputButton.setCallback([this](input::Action action) {
         onUserAction(action);
     });
+
+    EVENT_BUS.subscribe<App, TestEvent>(this, &App::onTestEvent);
 
     LOG_LN("Setup done");
 }
@@ -150,4 +155,9 @@ void App::draw() {
 void App::onUserAction(input::Action action) {
     LOG_LN("user input action: " << static_cast<int>(action));
     mStackView.handle(action);
+}
+
+//events
+void App::onTestEvent(TestEvent& event) {
+    LOG_LN("got event TestEvent::data: " << event.data);
 }

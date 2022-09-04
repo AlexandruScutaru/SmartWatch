@@ -3,6 +3,7 @@
 #include "Display/Display.h"
 #include "Input/InputButton.h"
 #include "Ui/Views/StackView.h"
+#include "Misc/EventTypes.h"
 
 #include <cstdint>
 
@@ -22,6 +23,9 @@ public:
     ~App();
 
     void run();
+
+//events
+    void onTestEvent(TestEvent& event);
 
 private:
     void initWifi();
