@@ -4,8 +4,8 @@
 
 #include <memory>
 
-class Display;
-using DisplayPtr = std::shared_ptr<Display>;
+class IDisplay;
+using DisplayPtr = std::shared_ptr<IDisplay>;
 
 
 class TopBar {

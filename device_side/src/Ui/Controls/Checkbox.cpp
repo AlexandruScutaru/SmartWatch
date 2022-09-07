@@ -1,7 +1,9 @@
 #include "Checkbox.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Ui/Resources/Icons.h"
+#include "Utils/ColorUtils.h"
+
 
 Checkbox::Checkbox(const char* text, const vec2& pos, const vec2& size, OnStateChangedFunction func) 
     : mPos(pos)
@@ -29,12 +31,12 @@ void Checkbox::draw(DisplayPtr display) {
 }
 
 void Checkbox::drawAt(DisplayPtr display, const vec2& pos) {
-    uint16_t bg = SSD1306_BLACK;
-    uint16_t color = SSD1306_WHITE;
+    uint16_t bg = color_utils::BLACK;
+    uint16_t color = color_utils::WHITE;
 
     if (mFocused) {
-        bg = SSD1306_WHITE;
-        color = SSD1306_BLACK;
+        bg = color_utils::WHITE;
+        color = color_utils::BLACK;
     }
     display->setTextColor(color);
 

@@ -1,6 +1,7 @@
 #include "TextButton.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
+#include "Utils/ColorUtils.h"
 
 
 TextButton::TextButton(const char* text, const vec2& pos, const vec2& size, OnClickFunction func) 
@@ -12,12 +13,12 @@ TextButton::TextButton(const char* text, const vec2& size, OnClickFunction func)
 {}
 
 void TextButton::drawAt(DisplayPtr display, const vec2& pos) {
-    uint16_t bg = SSD1306_BLACK;
-    uint16_t color = SSD1306_WHITE;
+    uint16_t bg = color_utils::BLACK;
+    uint16_t color = color_utils::WHITE;
 
     if (mFocused) {
-        bg = SSD1306_WHITE;
-        color = SSD1306_BLACK;
+        bg = color_utils::WHITE;
+        color = color_utils::BLACK;
     }
     display->setTextColor(color);
 

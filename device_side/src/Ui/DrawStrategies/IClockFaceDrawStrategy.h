@@ -6,8 +6,8 @@ namespace clock_time {
     struct TimeData;
 }
 
-class Display;
-using DisplayPtr = std::shared_ptr<Display>;
+class IDisplay;
+using DisplayPtr = std::shared_ptr<IDisplay>;
 
 class IClockFaceDrawStrategy {
 public:

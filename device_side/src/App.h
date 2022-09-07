@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Input/InputButton.h"
 #include "Ui/Views/StackView.h"
 #include "Misc/EventTypes.h"

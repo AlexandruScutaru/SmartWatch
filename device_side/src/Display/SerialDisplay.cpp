@@ -6,7 +6,7 @@
 
 
 SerialDisplay::SerialDisplay(uint8_t w, uint8_t h, int8_t rst)
-    : Display(w, h, rst)
+    : OledDisplay(w, h, rst)
     , mBuffLen(w * ((h + 7) / 8))
     , mWebSocket(web::WebSocket(81, web::WebSocketCallbacks()))
 {}

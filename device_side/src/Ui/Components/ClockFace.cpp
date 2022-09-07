@@ -1,6 +1,6 @@
 #include "ClockFace.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Ui/DrawStrategies/IClockFaceDrawStrategy.h"
 #include "Misc/TimeData.h"
 

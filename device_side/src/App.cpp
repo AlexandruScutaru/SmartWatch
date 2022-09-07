@@ -75,7 +75,7 @@ void App::initWifi() {
     mDisplay->setCursor(0, 0);
 
     mDisplay->clear();
-    mDisplay->print(WiFi.localIP().toString());
+    mDisplay->print(WiFi.localIP().toString().c_str());
     mDisplay->display();
     delay(2000); // give some time to see what IP was assigned to it
 }

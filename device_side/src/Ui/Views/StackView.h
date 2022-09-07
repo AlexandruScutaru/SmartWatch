@@ -8,8 +8,8 @@
 class IView;
 using IViewPtr = std::shared_ptr<IView>;
 
-class Display;
-using DisplayPtr = std::shared_ptr<Display>;
+class IDisplay;
+using DisplayPtr = std::shared_ptr<IDisplay>;
 
 namespace input {
     enum class Action;

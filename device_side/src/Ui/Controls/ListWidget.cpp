@@ -1,6 +1,6 @@
 #include "ListWidget.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Ui/DrawStrategies/IListWidgetDrawStrategy.h"
 
 

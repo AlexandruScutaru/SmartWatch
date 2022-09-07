@@ -1,6 +1,6 @@
 #include "MainMenuView.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Misc/Logger.h"
 #include "Ui/Controls/ListWidget.h"
 #include "Ui/DrawStrategies/IconListWidgetDrawStrategy.h"

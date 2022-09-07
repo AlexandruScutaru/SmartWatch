@@ -1,8 +1,9 @@
 #include "VListWidgetDrawStrategy.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Utils/Vector.h"
 #include "Ui/Controls/Widget.h"
+#include "Utils/ColorUtils.h"
 
 
 void VListWidgetDrawStrategy::drawList(DisplayPtr display, const vec2& pos, const vec2& size, const vector<WidgetPtr>& list, size_t currentItemIdx) {
@@ -38,6 +39,6 @@ void VListWidgetDrawStrategy::drawList(DisplayPtr display, const vec2& pos, cons
     int16_t barHeight = entriesToBeDrawn / (double)itemCount * size.y;
     int16_t barPos = start / (double)itemCount * size.y;
 
-    display->drawRect(size.x - 4, pos.y, 4, size.y);
-    display->fillRect(size.x - 3, pos.y + barPos, 2, barHeight);
+    display->drawRect(size.x - 4, pos.y, 4, size.y, color_utils::WHITE);
+    display->fillRect(size.x - 3, pos.y + barPos, 2, barHeight, color_utils::WHITE);
 }

@@ -6,8 +6,9 @@
 #include "Ui/Controls/TextButton.h"
 #include "Ui/Controls/Checkbox.h"
 #include "StackView.h"
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Ui/Presenters/SettingsPresenter.h"
+#include "Utils/ColorUtils.h"
 
 #define LIST_ITEM_WIDTH 124
 #define LIST_ITEM_HEIGHT 12
@@ -49,7 +50,7 @@ void SettingsView::draw(DisplayPtr display) {
     display->clear();
 
     display->setTextSize(1);
-    display->setTextColor(SSD1306_WHITE);
+    display->setTextColor(color_utils::WHITE);
     display->setCursor((128 - strlen(NAME) * 6) / 2, 4);
     display->print(NAME);
 

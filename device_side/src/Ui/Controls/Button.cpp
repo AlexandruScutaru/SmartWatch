@@ -1,6 +1,6 @@
 #include "Button.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 
 
 Button::Button(const char* text, const vec2& pos, const vec2& size, OnClickFunction func) 

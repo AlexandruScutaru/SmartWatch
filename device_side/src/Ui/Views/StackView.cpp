@@ -4,7 +4,7 @@
 #include "IView.h"
 #include "Misc/Logger.h"
 #include "MainScreenView.h"
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 
 static int SCREEN_TIMEOUT = 5000;
 

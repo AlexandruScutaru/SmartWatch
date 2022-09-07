@@ -1,7 +1,7 @@
 #include "DigitalClockFaceDrawStrategy.h"
 
 #include "Misc/TimeData.h"
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 
 #define PRINT_WITH_LEADING_ZERO(value)        if ((value) < 10U) display->print("0"); display->print((value))
 

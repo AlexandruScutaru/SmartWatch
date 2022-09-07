@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Display.h"
+#include "OledDisplay.h"
 
 #include "Web/WebSocket.h"
 
 
-class SerialDisplay : public Display {
+class SerialDisplay : public OledDisplay {
 public:
     SerialDisplay(uint8_t w, uint8_t h, int8_t rst);
 

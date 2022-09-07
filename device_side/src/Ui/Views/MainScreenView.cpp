@@ -1,7 +1,7 @@
 #include "MainScreenView.h"
 
 #include "Ui/DrawStrategies/DigitalClockFaceDrawStrategy.h"
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Misc/Logger.h"
 #include "Input/InputButton.h"
 #include "MainMenuView.h"

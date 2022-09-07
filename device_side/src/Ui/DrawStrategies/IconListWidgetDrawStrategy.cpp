@@ -1,8 +1,9 @@
 #include "IconListWidgetDrawStrategy.h"
 
-#include "Display/Display.h"
+#include "Display/IDisplay.h"
 #include "Utils/Vector.h"
 #include "Ui/Controls/Widget.h"
+#include "Utils/ColorUtils.h"
 
 
 void IconListWidgetDrawStrategy::drawList(DisplayPtr display, const vec2& pos, const vec2& size, const vector<WidgetPtr>& list, size_t currentItemIdx) {
@@ -36,6 +37,6 @@ void IconListWidgetDrawStrategy::drawList(DisplayPtr display, const vec2& pos, c
     int16_t barWidth = entriesToBeDrawn / (double)itemCount * size.x;
     int16_t barPos = currentItemIdx / (double)itemCount * size.x;
 
-    display->drawRect(pos.x, pos.y + size.y - 4, size.x, 4);
-    display->fillRect(pos.x + barPos, pos.y + size.y - 3, barWidth, 2);
+    display->drawRect(pos.x, pos.y + size.y - 4, size.x, 4, color_utils::WHITE);
+    display->fillRect(pos.x + barPos, pos.y + size.y - 3, barWidth, 2, color_utils::WHITE);
 }
