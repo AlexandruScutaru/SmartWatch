@@ -39,3 +39,7 @@ ios_side/*.xcodeproj/*
 !ios_side/*.xcodeproj/xcshareddata/
 !ios_side/*.xcworkspace/contents.xcworkspacedata
 **/ios_side/xcshareddata/WorkspaceSettings.xcsettings
+
+# PC DevEmu side
+DevEmu/build-*
+DevEmu/*.pro.user
