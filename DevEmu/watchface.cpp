@@ -1,15 +1,16 @@
 #include "watchface.h"
 #include "ui_watchface.h"
 
-#include "display.h"
+#include "displaywidget.h"
+#include "mainwindow.h"
 
 #include <QResizeEvent>
 #include <QMoveEvent>
 
-inline constexpr double displayHorScaleFactor = 0.611;
-inline constexpr double displayVerScaleFactor = 0.266;
-inline constexpr double displayWScaleFactor = 0.597;
-inline constexpr double displayHScaleFactor = 0.64;
+inline constexpr double displayHorScaleFactor = 0.6;
+inline constexpr double displayVerScaleFactor = 0.245;
+inline constexpr double displayWScaleFactor = 0.587;
+inline constexpr double displayHScaleFactor = 0.62;
 
 
 WatchFace::WatchFace(QWidget *parent) :
@@ -21,15 +22,21 @@ WatchFace::WatchFace(QWidget *parent) :
     mWatchIllustrationImage = QPixmap(":/images/watch_illustration.png");
     drawImage(size());
 
-    mDisplay = new Display(this);
+    mDisplayWidget = new DisplayWidget(this);
     updateDisplayGeometry();
-    mDisplay->show();
-    mDisplay->raise();
+    mDisplayWidget->show();
+    mDisplayWidget->raise();
+
+    QObject::connect(&MAIN_WINDOW, &MainWindow::windowMoved, this, &WatchFace::onWindowMoved);
 }
 
 WatchFace::~WatchFace()
 {
     delete ui;
+}
+
+DisplayWidget* WatchFace::getDisplayWidget() {
+    return mDisplayWidget;
 }
 
 void WatchFace::drawImage(const QSize& size) {
@@ -47,7 +54,7 @@ void WatchFace::updateDisplayGeometry() {
     auto x = centerGlobal.x() - int(mWatchIllustrationSize.width() * displayWScaleFactor) / 2;
     auto y = centerGlobal.y() - int(mWatchIllustrationSize.height() * displayHScaleFactor) / 2;
 
-    mDisplay->setGeometry({x, y, w, h});
+    mDisplayWidget->setGeometry({x, y, w, h});
 }
 
 void WatchFace::resizeEvent(QResizeEvent* event) {

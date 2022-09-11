@@ -1,15 +1,16 @@
-#ifndef WATCHFACE_H
-#define WATCHFACE_H
+#pragma once
 
 #include <QWidget>
 #include <QPixmap>
+
+class DisplayWidget;
+
 
 namespace Ui {
 class WatchFace;
 }
 
-class WatchFace : public QWidget
-{
+class WatchFace : public QWidget {
     Q_OBJECT
 
 public:
@@ -17,6 +18,9 @@ public:
     ~WatchFace();
 
 public:
+    DisplayWidget* getDisplayWidget();
+
+public slots:
     void onWindowMoved();
 
 private:
@@ -27,9 +31,7 @@ private:
 
     QPixmap mWatchIllustrationImage;
     QSize mWatchIllustrationSize;
-    QWidget* mDisplay{ nullptr };
+    DisplayWidget* mDisplayWidget{ nullptr };
 
     Ui::WatchFace *ui;
 };
-
-#endif // WATCHFACE_H

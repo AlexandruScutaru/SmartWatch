@@ -10,17 +10,19 @@ CONFIG += c++17
 
 SOURCES += \
     display.cpp \
+    displaywidget.cpp \
     main.cpp \
     mainwindow.cpp \
     watchface.cpp
 
 HEADERS += \
     display.h \
+    displaywidget.h \
     mainwindow.h \
     watchface.h
 
 FORMS += \
-    display.ui \
+    displaywidget.ui \
     mainwindow.ui \
     watchface.ui
 
