@@ -1,6 +1,7 @@
 #include "BatteryLevelReader.h"
 
-#include <Arduino.h>
+#include "Utils/PlatformUtils.h"
+#include "Misc/Logger.h"
 
 #define PIN_BATTERY_LEVEL           33
 #define PERCENTAGE_BIAS             0.2
@@ -64,7 +65,7 @@ VoltagePercentagePair BatteryLevelReader::readBatteryVoltage() {
     //2* is used because max voltage of battery (4.2V) exceeds the analog read of 3.3v of the board
     //so the battery sensing wire is part of a voltage divider to be in the expected range [0, 3.3]
     //the PERCENTAGE_BIAS (0.2) is empirically deduced to get a closer voltage to a real meter reading
-    reading.voltage = 2 * (REFERENCE_VOLTAGE * analogRead(PIN_BATTERY_LEVEL) / MAX_ANALOG_READ) + PERCENTAGE_BIAS;
+    reading.voltage = 2 * (REFERENCE_VOLTAGE * platform_utils::analogRead(PIN_BATTERY_LEVEL) / MAX_ANALOG_READ) + PERCENTAGE_BIAS;
 
     size_t index;
     for (index = 0; index < mNumberRanges; index++) {
@@ -78,7 +79,7 @@ VoltagePercentagePair BatteryLevelReader::readBatteryVoltage() {
     if(index)
         index--;
 
-    reading.percentage = min((int)((reading.voltage - mVoltageRanges[index+1].voltage) / (mVoltageRanges[index].voltage - mVoltageRanges[index+1].voltage) *
+    reading.percentage = std::min((int)((reading.voltage - mVoltageRanges[index+1].voltage) / (mVoltageRanges[index].voltage - mVoltageRanges[index+1].voltage) *
                                    (mVoltageRanges[index].percentage - mVoltageRanges[index+1].percentage) + mVoltageRanges[index+1].percentage), 100);
 
     return reading;

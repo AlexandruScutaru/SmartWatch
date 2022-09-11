@@ -1,6 +1,6 @@
 #include "TimeData.h"
 
-static uint8_t MONTHS_ARR[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static int8_t MONTHS_ARR[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 using namespace clock_time;
 
@@ -28,21 +28,21 @@ const TimeData& Time::getTimeData() const {
 void Time::onSecondPassed() {
     //this was writte at 3 AM, I just wanted to see some values on screen...
     mTime.sec++;
-    if (mTime.sec == 60U) {
-        mTime.sec = 0U;
+    if (mTime.sec == 60) {
+        mTime.sec = 0;
         mTime.min++;
-        if (mTime.min == 60U) {
-            mTime.min = 0U;
+        if (mTime.min == 60) {
+            mTime.min = 0;
             mTime.hour++;
-            if (mTime.hour == 24U) {
-                mTime.hour = 0U;
+            if (mTime.hour == 24) {
+                mTime.hour = 0;
                 mTime.day++;
                 if(mTime.day > MONTHS_ARR[mTime.month-1]) {
                     if (mTime.month != 2 || !isLeapYear()) {
-                        mTime.day = 1U;
+                        mTime.day = 1;
                         mTime.month++;
                         if (mTime.month > 12) {
-                            mTime.month = 1U;
+                            mTime.month = 1;
                             mTime.year++;
                         }
                     }

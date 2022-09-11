@@ -1,12 +1,11 @@
 #include "VListWidgetDrawStrategy.h"
 
 #include "Display/IDisplay.h"
-#include "Utils/Vector.h"
 #include "Ui/Controls/Widget.h"
 #include "Utils/ColorUtils.h"
 
 
-void VListWidgetDrawStrategy::drawList(DisplayPtr display, const vec2& pos, const vec2& size, const vector<WidgetPtr>& list, size_t currentItemIdx) {
+void VListWidgetDrawStrategy::drawList(DisplayPtr display, const vec2& pos, const vec2& size, const std::vector<WidgetPtr>& list, size_t currentItemIdx) {
     size_t itemCount = list.size();
     size_t entriesToBeDrawn = 0;
     if (list[0]) {

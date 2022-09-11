@@ -1,18 +1,18 @@
 #include "Timer.h"
 
-#include <Arduino.h>
+#include "Utils/PlatformUtils.h"
 
 
 void Timer::start(uint32_t period, bool singleShot, TimerFunction func) {
     mPeriod = period;
     mFunc = func;
     mSingleShot = singleShot;
-    mStartTime = millis();
+    mStartTime = platform_utils::getElapsedTime();
     mStopped = false;
 }
 
 void Timer::reset() {
-    mStartTime = millis();
+    mStartTime = platform_utils::getElapsedTime();
 }
 
 void Timer::stop() {
@@ -25,7 +25,7 @@ void Timer::update() {
         return;
     }
 
-    if (millis() - mStartTime >= mPeriod) {
+    if (platform_utils::getElapsedTime() - mStartTime >= mPeriod) {
         if (mFunc) {
             mFunc();
         }
@@ -35,13 +35,13 @@ void Timer::update() {
             mStartTime = 0U;
             return;
         }
-        mStartTime = millis();
+        mStartTime = platform_utils::getElapsedTime();
     }
 }
 
 void Timer::restart() {
     if (mPeriod) {
-        mStartTime = millis();
+        mStartTime = platform_utils::getElapsedTime();
         mStopped = false;
     }
 }

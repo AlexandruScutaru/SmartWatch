@@ -27,7 +27,7 @@ void ListWidget::addItem(WidgetPtr item) {
 }
 
 void ListWidget::setFocusedItem(size_t idx, bool focus) {
-    if (mWidgetsList.isInsideBounds(idx) && mWidgetsList[idx]) {
+    if (idx < mWidgetsList.size() && mWidgetsList[idx]) {
         mWidgetsList[idx]->setFocused(focus);
     }
 }
@@ -42,7 +42,7 @@ void ListWidget::onSingleTap() {
 }
 
 void ListWidget::onDoubleTap() {
-    if (mWidgetsList.isInsideBounds(mCurrentlySelected) && mWidgetsList[mCurrentlySelected]) {
+    if (mCurrentlySelected < mWidgetsList.size() && mWidgetsList[mCurrentlySelected]) {
         mWidgetsList[mCurrentlySelected]->trigger();
     }
 }

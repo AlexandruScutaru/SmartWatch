@@ -7,12 +7,12 @@
 
 namespace clock_time {
     struct TimeData {
-        uint8_t sec = 10U;
-        uint8_t min = 23U;
-        uint8_t hour = 20U;
-        uint8_t day = 16U;
-        uint8_t month = 10U;
-        uint16_t year = 2021U;
+        int8_t sec = 10;
+        int8_t min = 23;
+        int8_t hour = 20;
+        int8_t day = 16;
+        int8_t month = 10;
+        int16_t year = 2021;
     };
 
     class Time {

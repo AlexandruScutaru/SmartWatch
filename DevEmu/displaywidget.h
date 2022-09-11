@@ -6,8 +6,8 @@
 #include <string>
 #include <vector>
 
-class Display;
-
+class IDisplay;
+using DisplayPtr = std::shared_ptr<IDisplay>;
 
 namespace Ui {
 class DisplayWidget;
@@ -20,7 +20,7 @@ public:
     explicit DisplayWidget(QWidget *parent = nullptr);
     ~DisplayWidget();
 
-    Display* getDisplay();
+    DisplayPtr getDisplay();
 
 private slots:
     void onDisplayRequested(const QPixmap& image);
@@ -33,7 +33,7 @@ private:
 
     Ui::DisplayWidget *ui;
 
-    Display* mDisplay{ nullptr };
+    DisplayPtr mDisplay;
     QPixmap mImage;
     QSize mImageSize;
 };

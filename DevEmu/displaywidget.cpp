@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 
 #include <QResizeEvent>
+#include <QDebug>
 
 
 DisplayWidget::DisplayWidget(QWidget *parent)
@@ -15,9 +16,14 @@ DisplayWidget::DisplayWidget(QWidget *parent)
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
-    mDisplay = new Display();
+    mDisplay = std::make_shared<Display>();
+    auto displayDownCast = dynamic_cast<Display*>(mDisplay.get());
+    if (!displayDownCast)
+    {
+        qWarning() << "Can't downcast DisplayPtr to Widget";
+    }
 
-    QObject::connect(mDisplay, &Display::displayRequested, this, &DisplayWidget::onDisplayRequested);
+    QObject::connect(displayDownCast, &Display::displayRequested, this, &DisplayWidget::onDisplayRequested);
     //QObject::connect(&MAIN_WINDOW, &MainWindow::windowMoved, this, &DisplayWidget::onWindowMoved);
 
     mImageSize = size();
@@ -25,11 +31,10 @@ DisplayWidget::DisplayWidget(QWidget *parent)
 
 DisplayWidget::~DisplayWidget()
 {
-    delete mDisplay;
     delete ui;
 }
 
-Display* DisplayWidget::getDisplay() {
+DisplayPtr DisplayWidget::getDisplay() {
     return mDisplay;
 }
 

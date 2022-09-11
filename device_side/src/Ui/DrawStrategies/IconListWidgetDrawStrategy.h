@@ -5,6 +5,6 @@
 
 class IconListWidgetDrawStrategy : public IListWidgetDrawStrategy {
 public:
-    void drawList(DisplayPtr display, const vec2& pos, const vec2& size, const vector<WidgetPtr>& list, size_t currentItemIdx) override;
+    void drawList(DisplayPtr display, const vec2& pos, const vec2& size, const std::vector<WidgetPtr>& list, size_t currentItemIdx) override;
 
 };

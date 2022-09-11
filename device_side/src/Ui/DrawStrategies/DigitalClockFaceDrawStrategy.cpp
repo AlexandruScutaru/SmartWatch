@@ -3,7 +3,7 @@
 #include "Misc/TimeData.h"
 #include "Display/IDisplay.h"
 
-#define PRINT_WITH_LEADING_ZERO(value)        if ((value) < 10U) display->print("0"); display->print((value))
+#define PRINT_WITH_LEADING_ZERO(value) if ((value) < 10U) display->print("0"); display->print((value))
 
 
 void DigitalClockFaceDrawStrategy::draw(DisplayPtr display, const clock_time::TimeData& time) {

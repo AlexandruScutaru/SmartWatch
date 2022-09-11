@@ -10,6 +10,8 @@
 #include "Ui/Presenters/SettingsPresenter.h"
 #include "Utils/ColorUtils.h"
 
+#include <cstring>
+
 #define LIST_ITEM_WIDTH 124
 #define LIST_ITEM_HEIGHT 12
 

@@ -1,11 +1,9 @@
 #pragma once
 
+#include "Utils/vec2.h"
+
 #include <memory>
-
-class vec2;
-
-template<class T>
-class vector;
+#include <vector>
 
 class IDisplay;
 using DisplayPtr = std::shared_ptr<IDisplay>;
@@ -18,7 +16,7 @@ class IListWidgetDrawStrategy {
 public:
     virtual ~IListWidgetDrawStrategy() {}
 
-    virtual void drawList(DisplayPtr display, const vec2& pos, const vec2& size, const vector<WidgetPtr>& list, size_t currentItemIdx) = 0;
+    virtual void drawList(DisplayPtr display, const vec2& pos, const vec2& size, const std::vector<WidgetPtr>& list, size_t currentItemIdx) = 0;
 
 };
 

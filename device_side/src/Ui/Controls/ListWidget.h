@@ -2,7 +2,7 @@
 
 #include "Widget.h"
 
-#include "Utils/Vector.h"
+#include <vector>
 
 class IListWidgetDrawStrategy;
 using IListWidgetDrawStrategyPtr = std::shared_ptr<IListWidgetDrawStrategy>;
@@ -24,7 +24,7 @@ private:
     void onDoubleTap() override;
 
     IListWidgetDrawStrategyPtr mDrawStrategy {nullptr};
-    vector<WidgetPtr> mWidgetsList;
+    std::vector<WidgetPtr> mWidgetsList;
     size_t mCurrentlySelected = 0;
 
     vec2 mPos;
